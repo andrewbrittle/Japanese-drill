@@ -387,7 +387,34 @@
       <div class="group-info">
         <div class="group-name">Directions, travel &amp; signage</div>
         <div class="group-chars">上下左右中 駅道店病院</div>
-        <div class="group-count">38 characters</div>
+        <div class="group-count">40 characters</div>
+      </div>
+      <div class="toggle"></div>
+    </div>
+
+    <div class="group-card" data-key="kanji-food" onclick="toggleGroup(this)">
+      <div class="group-info">
+        <div class="group-name">Food &amp; dining</div>
+        <div class="group-chars">食べる 飲む 魚 野菜…</div>
+        <div class="group-count">10 characters</div>
+      </div>
+      <div class="toggle"></div>
+    </div>
+
+    <div class="group-card" data-key="kanji-weather" onclick="toggleGroup(this)">
+      <div class="group-info">
+        <div class="group-name">Weather</div>
+        <div class="group-chars">雨 晴れ 曇り 暑い…</div>
+        <div class="group-count">6 characters</div>
+      </div>
+      <div class="toggle"></div>
+    </div>
+
+    <div class="group-card" data-key="kanji-people" onclick="toggleGroup(this)">
+      <div class="group-info">
+        <div class="group-name">People &amp; question words</div>
+        <div class="group-chars">私 何 誰 学生 先生</div>
+        <div class="group-count">5 characters</div>
       </div>
       <div class="toggle"></div>
     </div>
@@ -768,6 +795,35 @@ const DATA = {
     {char:'受付',answer:'reception',disp:'survival',options:[{en:'reception',jp:'受付',rd:'uketsuke'},{en:'classroom',jp:'教室',rd:'kyoushitsu'},{en:'canteen',jp:'食堂',rd:'shokudou'},{en:'meeting room',jp:'会議室',rd:'kaigishitsu'}]},
     {char:'教室',answer:'classroom',disp:'survival',options:[{en:'classroom',jp:'教室',rd:'kyoushitsu'},{en:'reception',jp:'受付',rd:'uketsuke'},{en:'canteen',jp:'食堂',rd:'shokudou'},{en:'school',jp:'学校',rd:'gakkou'}]},
     {char:'食堂',answer:'canteen / cafeteria',disp:'survival',options:[{en:'canteen / cafeteria',jp:'食堂',rd:'shokudou'},{en:'reception',jp:'受付',rd:'uketsuke'},{en:'classroom',jp:'教室',rd:'kyoushitsu'},{en:'meat',jp:'肉',rd:'niku'}]},
+    {char:'男',answer:'male',disp:'survival',options:[{en:'male',jp:'男',rd:'otoko'},{en:'female',jp:'女',rd:'onna'},{en:'person',jp:'人',rd:'hito'},{en:'big',jp:'大',rd:'dai'}]},
+    {char:'女',answer:'female',disp:'survival',options:[{en:'female',jp:'女',rd:'onna'},{en:'male',jp:'男',rd:'otoko'},{en:'person',jp:'人',rd:'hito'},{en:'small',jp:'小',rd:'shou'}]},
+  ],
+  'kanji-food': [
+    {char:'食べる',answer:'eat',disp:'survival',options:[{en:'eat',jp:'食べる',rd:'taberu'},{en:'drink',jp:'飲む',rd:'nomu'},{en:'canteen',jp:'食堂',rd:'shokudou'},{en:'meat',jp:'肉',rd:'niku'}]},
+    {char:'飲む',answer:'drink',disp:'survival',options:[{en:'drink',jp:'飲む',rd:'nomu'},{en:'eat',jp:'食べる',rd:'taberu'},{en:'water',jp:'水',rd:'mizu'},{en:'cooking',jp:'料理',rd:'ryouri'}]},
+    {char:'魚',answer:'fish',disp:'survival',options:[{en:'fish',jp:'魚',rd:'sakana'},{en:'meat',jp:'肉',rd:'niku'},{en:'vegetable',jp:'野菜',rd:'yasai'},{en:'rice / meal',jp:'ご飯',rd:'gohan'}]},
+    {char:'野菜',answer:'vegetable',disp:'survival',options:[{en:'vegetable',jp:'野菜',rd:'yasai'},{en:'fish',jp:'魚',rd:'sakana'},{en:'meat',jp:'肉',rd:'niku'},{en:'fruit',jp:'果物',rd:'kudamono'}]},
+    {char:'ご飯',answer:'rice / meal',disp:'survival',options:[{en:'rice / meal',jp:'ご飯',rd:'gohan'},{en:'breakfast',jp:'朝食',rd:'choushoku'},{en:'vegetable',jp:'野菜',rd:'yasai'},{en:'cooking',jp:'料理',rd:'ryouri'}]},
+    {char:'朝食',answer:'breakfast',disp:'survival',options:[{en:'breakfast',jp:'朝食',rd:'choushoku'},{en:'lunch',jp:'昼食',rd:'chuushoku'},{en:'dinner',jp:'夕食',rd:'yuushoku'},{en:'rice / meal',jp:'ご飯',rd:'gohan'}]},
+    {char:'昼食',answer:'lunch',disp:'survival',options:[{en:'lunch',jp:'昼食',rd:'chuushoku'},{en:'breakfast',jp:'朝食',rd:'choushoku'},{en:'dinner',jp:'夕食',rd:'yuushoku'},{en:'canteen',jp:'食堂',rd:'shokudou'}]},
+    {char:'夕食',answer:'dinner',disp:'survival',options:[{en:'dinner',jp:'夕食',rd:'yuushoku'},{en:'lunch',jp:'昼食',rd:'chuushoku'},{en:'breakfast',jp:'朝食',rd:'choushoku'},{en:'rice / meal',jp:'ご飯',rd:'gohan'}]},
+    {char:'高い',answer:'expensive / high',disp:'survival',options:[{en:'expensive / high',jp:'高い',rd:'takai'},{en:'cheap',jp:'安い',rd:'yasui'},{en:'big',jp:'大',rd:'dai'},{en:'small',jp:'小',rd:'shou'}]},
+    {char:'安い',answer:'cheap',disp:'survival',options:[{en:'cheap',jp:'安い',rd:'yasui'},{en:'expensive / high',jp:'高い',rd:'takai'},{en:'yen',jp:'円',rd:'en'},{en:'small',jp:'小',rd:'shou'}]},
+  ],
+  'kanji-weather': [
+    {char:'雨',answer:'rain',disp:'survival',options:[{en:'rain',jp:'雨',rd:'ame'},{en:'snow',jp:'雪',rd:'yuki'},{en:'sunny',jp:'晴れ',rd:'hare'},{en:'cloudy',jp:'曇り',rd:'kumori'}]},
+    {char:'晴れ',answer:'sunny',disp:'survival',options:[{en:'sunny',jp:'晴れ',rd:'hare'},{en:'rain',jp:'雨',rd:'ame'},{en:'cloudy',jp:'曇り',rd:'kumori'},{en:'hot',jp:'暑い',rd:'atsui'}]},
+    {char:'曇り',answer:'cloudy',disp:'survival',options:[{en:'cloudy',jp:'曇り',rd:'kumori'},{en:'sunny',jp:'晴れ',rd:'hare'},{en:'rain',jp:'雨',rd:'ame'},{en:'snow',jp:'雪',rd:'yuki'}]},
+    {char:'暑い',answer:'hot',disp:'survival',options:[{en:'hot',jp:'暑い',rd:'atsui'},{en:'cold',jp:'寒い',rd:'samui'},{en:'sunny',jp:'晴れ',rd:'hare'},{en:'expensive',jp:'高い',rd:'takai'}]},
+    {char:'寒い',answer:'cold',disp:'survival',options:[{en:'cold',jp:'寒い',rd:'samui'},{en:'hot',jp:'暑い',rd:'atsui'},{en:'snow',jp:'雪',rd:'yuki'},{en:'rain',jp:'雨',rd:'ame'}]},
+    {char:'雪',answer:'snow',disp:'survival',options:[{en:'snow',jp:'雪',rd:'yuki'},{en:'rain',jp:'雨',rd:'ame'},{en:'cold',jp:'寒い',rd:'samui'},{en:'cloudy',jp:'曇り',rd:'kumori'}]},
+  ],
+  'kanji-people': [
+    {char:'私',answer:'I / me',disp:'kanji',options:[{en:'I / me',jp:'私',rd:'watashi'},{en:'student',jp:'学生',rd:'gakusei'},{en:'teacher',jp:'先生',rd:'sensei'},{en:'who',jp:'誰',rd:'dare'}]},
+    {char:'何',answer:'what',disp:'kanji',options:[{en:'what',jp:'何',rd:'nan'},{en:'who',jp:'誰',rd:'dare'},{en:'I / me',jp:'私',rd:'watashi'},{en:'where',jp:'どこ',rd:'doko'}]},
+    {char:'誰',answer:'who',disp:'kanji',options:[{en:'who',jp:'誰',rd:'dare'},{en:'what',jp:'何',rd:'nan'},{en:'student',jp:'学生',rd:'gakusei'},{en:'I / me',jp:'私',rd:'watashi'}]},
+    {char:'学生',answer:'student',disp:'kanji',options:[{en:'student',jp:'学生',rd:'gakusei'},{en:'teacher',jp:'先生',rd:'sensei'},{en:'school',jp:'学校',rd:'gakkou'},{en:'classroom',jp:'教室',rd:'kyoushitsu'}]},
+    {char:'先生',answer:'teacher',disp:'kanji',options:[{en:'teacher',jp:'先生',rd:'sensei'},{en:'student',jp:'学生',rd:'gakusei'},{en:'I / me',jp:'私',rd:'watashi'},{en:'who',jp:'誰',rd:'dare'}]},
   ],
 };
 
@@ -943,12 +999,15 @@ const BADGE_LABELS = {
   'kanji-numbers-time': 'numbers / time',
   'kanji-nature-body': 'nature / body',
   'kanji-directions-travel': 'directions / travel',
+  'kanji-food': 'food / dining',
+  'kanji-weather': 'weather',
+  'kanji-people': 'people / questions',
 };
 
 const ALL_KEYS = Object.keys(DATA);
 const HIRAGANA_KEYS = ['hiragana-base','hiragana-diacritics','hiragana-youon'];
 const KATAKANA_KEYS = ['katakana-base','katakana-diacritics','katakana-youon'];
-const KANJI_KEYS = ['kanji-numbers-time','kanji-nature-body','kanji-directions-travel'];
+const KANJI_KEYS = ['kanji-numbers-time','kanji-nature-body','kanji-directions-travel','kanji-food','kanji-weather','kanji-people'];
 
 const selected = new Set(['hiragana-base']);
 let deck = [], current = 0, score = 0, wrong = 0, answered = false, missed = [];
