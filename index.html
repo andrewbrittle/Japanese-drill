@@ -453,7 +453,7 @@
       <div class="results-btns">
         <button class="btn-primary" onclick="startDrill()">Drill again</button>
         <button class="btn-secondary" id="res-missed-btn" onclick="drillMissed()" style="display:none">Drill missed only</button>
-        <button class="btn-secondary" onclick="showSettings()">Change groups</button>
+        <button class="btn-secondary" onclick="changeGroups()">Change groups</button>
       </div>
     </div>
   </div>
@@ -1123,6 +1123,12 @@ function showScreen(id) {
 
 function showSettings() { showScreen('settings'); }
 function showKanjiSettings() { showScreen('kanji-settings'); }
+
+function changeGroups() {
+  const isKanjiDeck = deck.length > 0 && deck.every(q => KANJI_KEYS.includes(q.groupKey));
+  if (isKanjiDeck) showKanjiSettings();
+  else showSettings();
+}
 
 function tryResume() {
   if (deck.length > 0 && current < deck.length) showScreen('drill');
