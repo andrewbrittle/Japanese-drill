@@ -238,8 +238,7 @@
 
   .round-label { font-size: 13px; font-weight: 600; color: var(--text-muted); text-align: center; }
 
-  .match-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px 10px; }
-  .match-col { display: flex; flex-direction: column; gap: 8px; }
+  .match-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px 10px; align-items: stretch; }
   .match-card {
     padding: 10px 8px; border-radius: var(--radius);
     border: 1px solid var(--border); background: var(--surface2);
@@ -420,10 +419,7 @@
       <div class="stat-pill"><div class="stat-num red" id="match-stat-mistakes">0</div><div class="stat-lbl">mistakes</div></div>
       <div class="stat-pill"><div class="stat-num gold" id="match-stat-left">0</div><div class="stat-lbl">left</div></div>
     </div>
-    <div class="match-grid" id="match-grid" style="display:grid;">
-      <div class="match-col" id="match-col-left"></div>
-      <div class="match-col" id="match-col-right"></div>
-    </div>
+    <div class="match-grid" id="match-grid" style="display:grid;"></div>
     <div id="match-round-complete" style="display:none; text-align:center;">
       <button class="btn-primary" onclick="nextMatchRound()">Next round →</button>
     </div>
@@ -1061,30 +1057,29 @@ function renderMatchRound() {
   document.getElementById('match-grid').style.display = 'grid';
   updateMatchStats();
 
-  const leftCol = document.getElementById('match-col-left');
-  const rightCol = document.getElementById('match-col-right');
-  leftCol.innerHTML = '';
-  rightCol.innerHTML = '';
+  const grid = document.getElementById('match-grid');
+  grid.innerHTML = '';
 
   const leftItems = shuffle(round);
   const rightItems = shuffle(round);
 
-  leftItems.forEach(it => {
-    const btn = document.createElement('button');
-    btn.className = 'match-card jp';
-    btn.innerHTML = `<span class="jp-text">${it.jp}</span><span class="romaji-text">${it.romaji}</span>`;
-    btn.onclick = () => pickMatchCard('left', it.id, btn);
-    btn.dataset.id = it.id;
-    leftCol.appendChild(btn);
-  });
-  rightItems.forEach(it => {
-    const btn = document.createElement('button');
-    btn.className = 'match-card en';
-    btn.textContent = it.en;
-    btn.onclick = () => pickMatchCard('right', it.id, btn);
-    btn.dataset.id = it.id;
-    rightCol.appendChild(btn);
-  });
+  for (let i = 0; i < round.length; i++) {
+    const lit = leftItems[i];
+    const lbtn = document.createElement('button');
+    lbtn.className = 'match-card jp';
+    lbtn.innerHTML = `<span class="jp-text">${lit.jp}</span><span class="romaji-text">${lit.romaji}</span>`;
+    lbtn.onclick = () => pickMatchCard('left', lit.id, lbtn);
+    lbtn.dataset.id = lit.id;
+    grid.appendChild(lbtn);
+
+    const rit = rightItems[i];
+    const rbtn = document.createElement('button');
+    rbtn.className = 'match-card en';
+    rbtn.textContent = rit.en;
+    rbtn.onclick = () => pickMatchCard('right', rit.id, rbtn);
+    rbtn.dataset.id = rit.id;
+    grid.appendChild(rbtn);
+  }
 }
 
 function updateMatchStats() {
