@@ -848,6 +848,14 @@ const VOCAB = {
       {jp:'どういたしまして', romaji:'douitashimashite', en:"You're welcome"},
       {jp:'おねがいします', romaji:'onegai shimasu', en:'Please'},
       {jp:'どうぞよろしくおねがいします', romaji:'douzo yoroshiku onegaishimasu', en:'I look forward to working with you'},
+      {jp:'よろしくおねがいします', romaji:'yoroshiku onegaishimasu', en:'Nice to meet you / please treat me well'},
+      {jp:'いいえ', romaji:'iie', en:'No / not at all'},
+      {jp:'いただきます', romaji:'itadakimasu', en:'(said before eating)'},
+      {jp:'ごちそうさまでした', romaji:'gochisousama deshita', en:'Thank you for the meal (after eating)'},
+      {jp:'いってらっしゃい', romaji:'itterasshai', en:'Take care (to someone leaving)'},
+      {jp:'おかえりなさい', romaji:'okaerinasai', en:'Welcome home'},
+      {jp:'いってきます', romaji:'ittekimasu', en:"I'm off (leaving home)"},
+      {jp:'ただいま', romaji:'tadaima', en:"I'm home"},
     ],
   },
   'vocab-countries': {
@@ -865,6 +873,20 @@ const VOCAB = {
       {jp:'いらん', romaji:'iran', en:'Iran'},
       {jp:'どいつ', romaji:'doitsu', en:'Germany'},
       {jp:'ぽーらんど', romaji:'poorando', en:'Poland'},
+      {jp:'いんど', romaji:'indo', en:'India'},
+      {jp:'いんどねしあ', romaji:'indoneshia', en:'Indonesia'},
+      {jp:'えじぷと', romaji:'ejiputo', en:'Egypt'},
+      {jp:'おーすとらりあ', romaji:'oosutoraria', en:'Australia'},
+      {jp:'かなだ', romaji:'kanada', en:'Canada'},
+      {jp:'さうじあらびあ', romaji:'saujiarabia', en:'Saudi Arabia'},
+      {jp:'しんがぽーる', romaji:'shingapooru', en:'Singapore'},
+      {jp:'すぺいん', romaji:'supein', en:'Spain'},
+      {jp:'たい', romaji:'tai', en:'Thailand'},
+      {jp:'ふぃりぴん', romaji:'firipin', en:'Philippines'},
+      {jp:'ぶらじる', romaji:'burajiru', en:'Brazil'},
+      {jp:'べとなむ', romaji:'betonamu', en:'Vietnam'},
+      {jp:'めきしこ', romaji:'mekishiko', en:'Mexico'},
+      {jp:'ろしあ', romaji:'roshia', en:'Russia'},
     ],
   },
   'vocab-occupations': {
@@ -909,6 +931,19 @@ const VOCAB = {
       {jp:'にく', romaji:'niku', en:'meat'},
       {jp:'さいふ', romaji:'saifu', en:'purse / wallet'},
       {jp:'じてんしゃ', romaji:'jitensha', en:'bicycle'},
+      {jp:'かめら', romaji:'kamera', en:'camera'},
+      {jp:'かーど', romaji:'kaado', en:'card'},
+      {jp:'こんぴゅーたー', romaji:'konpyuutaa', en:'computer'},
+      {jp:'こーひー', romaji:'koohii', en:'coffee'},
+      {jp:'しゃーぷぺんしる', romaji:'shaapupenshiru', en:'mechanical pencil'},
+      {jp:'しんぶん', romaji:'shinbun', en:'newspaper'},
+      {jp:'ちょこれーと', romaji:'chokoreeto', en:'chocolate'},
+      {jp:'つくえ', romaji:'tsukue', en:'desk'},
+      {jp:'てちょう', romaji:'techou', en:'pocket notebook'},
+      {jp:'てれび', romaji:'terebi', en:'television'},
+      {jp:'のーと', romaji:'nooto', en:'notebook'},
+      {jp:'めいし', romaji:'meishi', en:'business card'},
+      {jp:'らじお', romaji:'rajio', en:'radio'},
     ],
   },
   'vocab-places': {
@@ -1043,10 +1078,16 @@ function shuffle(arr) { return [...arr].sort(() => Math.random() - 0.5); }
 
 function toggleGroup(card) {
   const key = card.dataset.key;
-  if (selected.has(key)) { selected.delete(key); card.classList.remove('selected'); }
-  else { selected.add(key); card.classList.add('selected'); }
-  document.querySelectorAll('.start-btn').forEach(b => b.disabled = selected.size === 0);
-  updateDirectionVisibility();
+  if (selected.has(key)) {
+    selected.delete(key);
+  } else {
+    const isKanji = key.startsWith('kanji-');
+    [...selected].forEach(k => {
+      if (k.startsWith('kanji-') !== isKanji) selected.delete(k);
+    });
+    selected.add(key);
+  }
+  syncCardUI();
 }
 
 function syncCardUI() {
