@@ -270,7 +270,8 @@
 <header>
   <div class="logo">日本語 <span>drill</span></div>
   <div class="nav-pills">
-    <button class="nav-pill active" onclick="showSettings()">Settings</button>
+    <button class="nav-pill active" onclick="showSettings()">Kana</button>
+    <button class="nav-pill" id="nav-kanji" onclick="tryResumeKanji()">Kanji</button>
     <button class="nav-pill" id="nav-drill" onclick="tryResume()">Drill</button>
     <button class="nav-pill" id="nav-match" onclick="tryResumeMatch()">Match</button>
   </div>
@@ -286,8 +287,6 @@
     <div class="quick-row">
       <button class="quick-btn" onclick="selectPreset('hiragana')">All hiragana</button>
       <button class="quick-btn" onclick="selectPreset('katakana')">All katakana</button>
-      <button class="quick-btn" onclick="selectPreset('kanji')">All kanji</button>
-      <button class="quick-btn" onclick="selectPreset('everything')">Everything</button>
     </div>
 
     <div class="section-label">Hiragana</div>
@@ -305,6 +304,15 @@
         <div class="group-name">Hiragana — dakuten ゛ &amp; handakuten ゜</div>
         <div class="group-chars">がざだば ぱぴぷぺぽ…</div>
         <div class="group-count">25 characters</div>
+      </div>
+      <div class="toggle"></div>
+    </div>
+
+    <div class="group-card" data-key="hiragana-youon" onclick="toggleGroup(this)">
+      <div class="group-info">
+        <div class="group-name">Hiragana — contracted sounds (きゃ/しゃ etc.)</div>
+        <div class="group-chars">きゃきゅきょ しゃしゅしょ…</div>
+        <div class="group-count">33 combinations</div>
       </div>
       <div class="toggle"></div>
     </div>
@@ -328,7 +336,35 @@
       <div class="toggle"></div>
     </div>
 
-    <div class="section-label">Kanji</div>
+    <div class="group-card" data-key="katakana-youon" onclick="toggleGroup(this)">
+      <div class="group-info">
+        <div class="group-name">Katakana — contracted sounds (キャ/シャ etc.)</div>
+        <div class="group-chars">キャキュキョ シャシュショ…</div>
+        <div class="group-count">33 combinations</div>
+      </div>
+      <div class="toggle"></div>
+    </div>
+
+    <div class="group-card" id="direction-card" onclick="toggleDirection()" style="cursor:pointer; display:none;">
+      <div class="group-info">
+        <div class="group-name" id="direction-name">Kana → romaji</div>
+        <div class="group-count" id="direction-sub">See a character, pick the reading. Tap to reverse.</div>
+      </div>
+      <div class="toggle" id="direction-toggle"></div>
+    </div>
+
+    <button class="start-btn" id="start-btn" onclick="startDrill()">Start drill</button>
+  </div>
+
+  <!-- Kanji settings screen -->
+  <div class="screen" id="screen-kanji-settings">
+    <div class="settings-title">Kanji</div>
+    <div class="settings-sub">Select one or more groups, then start.</div>
+
+    <div class="quick-row">
+      <button class="quick-btn" onclick="selectKanjiPreset()">All kanji</button>
+    </div>
+
     <div class="group-card" data-key="kanji-numbers-time" onclick="toggleGroup(this)">
       <div class="group-info">
         <div class="group-name">Numbers, days &amp; time</div>
@@ -356,15 +392,7 @@
       <div class="toggle"></div>
     </div>
 
-    <div class="group-card" id="direction-card" onclick="toggleDirection()" style="cursor:pointer; display:none;">
-      <div class="group-info">
-        <div class="group-name" id="direction-name">Kana → romaji</div>
-        <div class="group-count" id="direction-sub">See a character, pick the reading. Tap to reverse.</div>
-      </div>
-      <div class="toggle" id="direction-toggle"></div>
-    </div>
-
-    <button class="start-btn" id="start-btn" onclick="startDrill()">Start drill</button>
+    <button class="start-btn" id="kanji-start-btn" onclick="startDrill()">Start drill</button>
   </div>
 
   <!-- Drill screen -->
@@ -514,6 +542,41 @@ const DATA = {
     {char:'ぺ',answer:'pe',disp:'diacritic',options:['pa','pe','be','he']},
     {char:'ぽ',answer:'po',disp:'diacritic',options:['pi','po','bo','ho']},
   ],
+  'hiragana-youon': [
+    {char:'きゃ',answer:'kya',disp:'youon',options:['kya','sha','cha','nya']},
+    {char:'きゅ',answer:'kyu',disp:'youon',options:['kyu','shu','chu','nyu']},
+    {char:'きょ',answer:'kyo',disp:'youon',options:['kyo','sho','cho','nyo']},
+    {char:'しゃ',answer:'sha',disp:'youon',options:['sha','kya','cha','ja']},
+    {char:'しゅ',answer:'shu',disp:'youon',options:['shu','kyu','chu','ju']},
+    {char:'しょ',answer:'sho',disp:'youon',options:['sho','kyo','cho','jo']},
+    {char:'ちゃ',answer:'cha',disp:'youon',options:['cha','sha','ja','nya']},
+    {char:'ちゅ',answer:'chu',disp:'youon',options:['chu','shu','ju','nyu']},
+    {char:'ちょ',answer:'cho',disp:'youon',options:['cho','sho','jo','nyo']},
+    {char:'にゃ',answer:'nya',disp:'youon',options:['nya','mya','rya','hya']},
+    {char:'にゅ',answer:'nyu',disp:'youon',options:['nyu','myu','ryu','hyu']},
+    {char:'にょ',answer:'nyo',disp:'youon',options:['nyo','myo','ryo','hyo']},
+    {char:'ひゃ',answer:'hya',disp:'youon',options:['hya','mya','rya','nya']},
+    {char:'ひゅ',answer:'hyu',disp:'youon',options:['hyu','myu','ryu','nyu']},
+    {char:'ひょ',answer:'hyo',disp:'youon',options:['hyo','myo','ryo','nyo']},
+    {char:'みゃ',answer:'mya',disp:'youon',options:['mya','hya','rya','nya']},
+    {char:'みゅ',answer:'myu',disp:'youon',options:['myu','hyu','ryu','nyu']},
+    {char:'みょ',answer:'myo',disp:'youon',options:['myo','hyo','ryo','nyo']},
+    {char:'りゃ',answer:'rya',disp:'youon',options:['rya','mya','hya','gya']},
+    {char:'りゅ',answer:'ryu',disp:'youon',options:['ryu','myu','hyu','gyu']},
+    {char:'りょ',answer:'ryo',disp:'youon',options:['ryo','myo','hyo','gyo']},
+    {char:'ぎゃ',answer:'gya',disp:'youon',options:['gya','kya','ja','bya']},
+    {char:'ぎゅ',answer:'gyu',disp:'youon',options:['gyu','kyu','ju','byu']},
+    {char:'ぎょ',answer:'gyo',disp:'youon',options:['gyo','kyo','jo','byo']},
+    {char:'じゃ',answer:'ja',disp:'youon',options:['ja','sha','gya','bya']},
+    {char:'じゅ',answer:'ju',disp:'youon',options:['ju','shu','gyu','byu']},
+    {char:'じょ',answer:'jo',disp:'youon',options:['jo','sho','gyo','byo']},
+    {char:'びゃ',answer:'bya',disp:'youon',options:['bya','pya','gya','ja']},
+    {char:'びゅ',answer:'byu',disp:'youon',options:['byu','pyu','gyu','ju']},
+    {char:'びょ',answer:'byo',disp:'youon',options:['byo','pyo','gyo','jo']},
+    {char:'ぴゃ',answer:'pya',disp:'youon',options:['pya','bya','kya','hya']},
+    {char:'ぴゅ',answer:'pyu',disp:'youon',options:['pyu','byu','kyu','hyu']},
+    {char:'ぴょ',answer:'pyo',disp:'youon',options:['pyo','byo','kyo','hyo']},
+  ],
   'katakana-base': [
     {char:'ア',answer:'a',disp:'base',options:['a','i','u','e']},
     {char:'イ',answer:'i',disp:'base',options:['a','i','o','u']},
@@ -589,6 +652,41 @@ const DATA = {
     {char:'プ',answer:'pu',disp:'diacritic',options:['pi','pu','bu','fu']},
     {char:'ペ',answer:'pe',disp:'diacritic',options:['pa','pe','be','he']},
     {char:'ポ',answer:'po',disp:'diacritic',options:['pi','po','bo','ho']},
+  ],
+  'katakana-youon': [
+    {char:'キャ',answer:'kya',disp:'youon',options:['kya','sha','cha','nya']},
+    {char:'キュ',answer:'kyu',disp:'youon',options:['kyu','shu','chu','nyu']},
+    {char:'キョ',answer:'kyo',disp:'youon',options:['kyo','sho','cho','nyo']},
+    {char:'シャ',answer:'sha',disp:'youon',options:['sha','kya','cha','ja']},
+    {char:'シュ',answer:'shu',disp:'youon',options:['shu','kyu','chu','ju']},
+    {char:'ショ',answer:'sho',disp:'youon',options:['sho','kyo','cho','jo']},
+    {char:'チャ',answer:'cha',disp:'youon',options:['cha','sha','ja','nya']},
+    {char:'チュ',answer:'chu',disp:'youon',options:['chu','shu','ju','nyu']},
+    {char:'チョ',answer:'cho',disp:'youon',options:['cho','sho','jo','nyo']},
+    {char:'ニャ',answer:'nya',disp:'youon',options:['nya','mya','rya','hya']},
+    {char:'ニュ',answer:'nyu',disp:'youon',options:['nyu','myu','ryu','hyu']},
+    {char:'ニョ',answer:'nyo',disp:'youon',options:['nyo','myo','ryo','hyo']},
+    {char:'ヒャ',answer:'hya',disp:'youon',options:['hya','mya','rya','nya']},
+    {char:'ヒュ',answer:'hyu',disp:'youon',options:['hyu','myu','ryu','nyu']},
+    {char:'ヒョ',answer:'hyo',disp:'youon',options:['hyo','myo','ryo','nyo']},
+    {char:'ミャ',answer:'mya',disp:'youon',options:['mya','hya','rya','nya']},
+    {char:'ミュ',answer:'myu',disp:'youon',options:['myu','hyu','ryu','nyu']},
+    {char:'ミョ',answer:'myo',disp:'youon',options:['myo','hyo','ryo','nyo']},
+    {char:'リャ',answer:'rya',disp:'youon',options:['rya','mya','hya','gya']},
+    {char:'リュ',answer:'ryu',disp:'youon',options:['ryu','myu','hyu','gyu']},
+    {char:'リョ',answer:'ryo',disp:'youon',options:['ryo','myo','hyo','gyo']},
+    {char:'ギャ',answer:'gya',disp:'youon',options:['gya','kya','ja','bya']},
+    {char:'ギュ',answer:'gyu',disp:'youon',options:['gyu','kyu','ju','byu']},
+    {char:'ギョ',answer:'gyo',disp:'youon',options:['gyo','kyo','jo','byo']},
+    {char:'ジャ',answer:'ja',disp:'youon',options:['ja','sha','gya','bya']},
+    {char:'ジュ',answer:'ju',disp:'youon',options:['ju','shu','gyu','byu']},
+    {char:'ジョ',answer:'jo',disp:'youon',options:['jo','sho','gyo','byo']},
+    {char:'ビャ',answer:'bya',disp:'youon',options:['bya','pya','gya','ja']},
+    {char:'ビュ',answer:'byu',disp:'youon',options:['byu','pyu','gyu','ju']},
+    {char:'ビョ',answer:'byo',disp:'youon',options:['byo','pyo','gyo','jo']},
+    {char:'ピャ',answer:'pya',disp:'youon',options:['pya','bya','kya','hya']},
+    {char:'ピュ',answer:'pyu',disp:'youon',options:['pyu','byu','kyu','hyu']},
+    {char:'ピョ',answer:'pyo',disp:'youon',options:['pyo','byo','kyo','hyo']},
   ],
   'kanji-numbers-time': [
     {char:'一',answer:'one',disp:'survival',options:[{en:'one',jp:'一月',rd:'ichigatsu'},{en:'two',jp:'二月',rd:'nigatsu'},{en:'six',jp:'六月',rd:'rokugatsu'},{en:'ten',jp:'十月',rd:'juugatsu'}]},
@@ -838,16 +936,18 @@ const VOCAB = {
 const BADGE_LABELS = {
   'hiragana-base': 'hiragana base',
   'hiragana-diacritics': 'hiragana ゛゜',
+  'hiragana-youon': 'hiragana きゃ',
   'katakana-base': 'katakana base',
   'katakana-diacritics': 'katakana ゛゜',
+  'katakana-youon': 'katakana キャ',
   'kanji-numbers-time': 'numbers / time',
   'kanji-nature-body': 'nature / body',
   'kanji-directions-travel': 'directions / travel',
 };
 
 const ALL_KEYS = Object.keys(DATA);
-const HIRAGANA_KEYS = ['hiragana-base','hiragana-diacritics'];
-const KATAKANA_KEYS = ['katakana-base','katakana-diacritics'];
+const HIRAGANA_KEYS = ['hiragana-base','hiragana-diacritics','hiragana-youon'];
+const KATAKANA_KEYS = ['katakana-base','katakana-diacritics','katakana-youon'];
 const KANJI_KEYS = ['kanji-numbers-time','kanji-nature-body','kanji-directions-travel'];
 
 const selected = new Set(['hiragana-base']);
@@ -882,7 +982,7 @@ function toggleGroup(card) {
   const key = card.dataset.key;
   if (selected.has(key)) { selected.delete(key); card.classList.remove('selected'); }
   else { selected.add(key); card.classList.add('selected'); }
-  document.getElementById('start-btn').disabled = selected.size === 0;
+  document.querySelectorAll('.start-btn').forEach(b => b.disabled = selected.size === 0);
   updateDirectionVisibility();
 }
 
@@ -890,7 +990,7 @@ function syncCardUI() {
   document.querySelectorAll('.group-card[data-key]').forEach(card => {
     card.classList.toggle('selected', selected.has(card.dataset.key));
   });
-  document.getElementById('start-btn').disabled = selected.size === 0;
+  document.querySelectorAll('.start-btn').forEach(b => b.disabled = selected.size === 0);
   updateDirectionVisibility();
 }
 
@@ -898,8 +998,12 @@ function selectPreset(preset) {
   selected.clear();
   if (preset === 'hiragana') HIRAGANA_KEYS.forEach(k => selected.add(k));
   else if (preset === 'katakana') KATAKANA_KEYS.forEach(k => selected.add(k));
-  else if (preset === 'kanji') KANJI_KEYS.forEach(k => selected.add(k));
-  else if (preset === 'everything') ALL_KEYS.forEach(k => selected.add(k));
+  syncCardUI();
+}
+
+function selectKanjiPreset() {
+  selected.clear();
+  KANJI_KEYS.forEach(k => selected.add(k));
   syncCardUI();
 }
 
@@ -908,15 +1012,22 @@ function showScreen(id) {
   document.getElementById('screen-' + id).classList.add('visible');
   document.querySelectorAll('.nav-pill').forEach(p => p.classList.remove('active'));
   if (id === 'settings') document.querySelectorAll('.nav-pill')[0].classList.add('active');
-  else if (id === 'match-settings' || id === 'match-game') document.querySelectorAll('.nav-pill')[2].classList.add('active');
-  else document.querySelectorAll('.nav-pill')[1].classList.add('active');
+  else if (id === 'kanji-settings') document.querySelectorAll('.nav-pill')[1].classList.add('active');
+  else if (id === 'match-settings' || id === 'match-game') document.querySelectorAll('.nav-pill')[3].classList.add('active');
+  else document.querySelectorAll('.nav-pill')[2].classList.add('active');
 }
 
 function showSettings() { showScreen('settings'); }
+function showKanjiSettings() { showScreen('kanji-settings'); }
 
 function tryResume() {
   if (deck.length > 0 && current < deck.length) showScreen('drill');
   else showSettings();
+}
+
+function tryResumeKanji() {
+  if (deck.length > 0 && current < deck.length) showScreen('drill');
+  else showKanjiSettings();
 }
 
 function buildDeck() {
@@ -1001,7 +1112,8 @@ function renderQuestion() {
   } else {
     // Normal mode: character -> romaji/meaning
     charDisplay.style.fontFamily = "'BIZ UDPGothic', sans-serif";
-    charDisplay.style.fontSize = '100px';
+    const len = [...q.char].length;
+    charDisplay.style.fontSize = len <= 2 ? '100px' : len === 3 ? '72px' : '56px';
     charDisplay.textContent = q.char;
     document.getElementById('q-prompt').textContent = isKanjiLike ? 'What does this kanji mean?' : 'What is this character?';
 
