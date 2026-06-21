@@ -368,8 +368,8 @@
     <div class="group-card" data-key="kanji-numbers-time" onclick="toggleGroup(this)">
       <div class="group-info">
         <div class="group-name">Numbers, days &amp; time</div>
-        <div class="group-chars">一二三四五 月火水木金</div>
-        <div class="group-count">24 characters</div>
+        <div class="group-chars">一二三四五 百千万半間</div>
+        <div class="group-count">30 characters</div>
       </div>
       <div class="toggle"></div>
     </div>
@@ -377,8 +377,8 @@
     <div class="group-card" data-key="kanji-nature-body" onclick="toggleGroup(this)">
       <div class="group-info">
         <div class="group-name">Nature &amp; body parts</div>
-        <div class="group-chars">日山水人大 口目耳手足</div>
-        <div class="group-count">13 characters</div>
+        <div class="group-chars">日山川水人大 口目耳</div>
+        <div class="group-count">14 characters</div>
       </div>
       <div class="toggle"></div>
     </div>
@@ -404,8 +404,8 @@
     <div class="group-card" data-key="kanji-weather" onclick="toggleGroup(this)">
       <div class="group-info">
         <div class="group-name">Weather</div>
-        <div class="group-chars">雨 晴れ 曇り 暑い…</div>
-        <div class="group-count">6 characters</div>
+        <div class="group-chars">雨 晴れ 曇り 天気…</div>
+        <div class="group-count">9 characters</div>
       </div>
       <div class="toggle"></div>
     </div>
@@ -413,8 +413,26 @@
     <div class="group-card" data-key="kanji-people" onclick="toggleGroup(this)">
       <div class="group-info">
         <div class="group-name">People &amp; question words</div>
-        <div class="group-chars">私 何 誰 学生 先生</div>
-        <div class="group-count">5 characters</div>
+        <div class="group-chars">私 何 誰 母 父 友 子</div>
+        <div class="group-count">9 characters</div>
+      </div>
+      <div class="toggle"></div>
+    </div>
+
+    <div class="group-card" data-key="kanji-general" onclick="toggleGroup(this)">
+      <div class="group-info">
+        <div class="group-name">General &amp; useful</div>
+        <div class="group-chars">国 名 本 語 外 長い…</div>
+        <div class="group-count">8 characters</div>
+      </div>
+      <div class="toggle"></div>
+    </div>
+
+    <div class="group-card" data-key="kanji-verbs" onclick="toggleGroup(this)">
+      <div class="group-info">
+        <div class="group-name">Common verbs</div>
+        <div class="group-chars">見る 聞く 話す 読む…</div>
+        <div class="group-count">7 characters</div>
       </div>
       <div class="toggle"></div>
     </div>
@@ -453,7 +471,7 @@
       <div class="results-btns">
         <button class="btn-primary" onclick="startDrill()">Drill again</button>
         <button class="btn-secondary" id="res-missed-btn" onclick="drillMissed()" style="display:none">Drill missed only</button>
-        <button class="btn-secondary" onclick="changeGroups()">Change groups</button>
+        <button class="btn-secondary" onclick="showSettings()">Change groups</button>
       </div>
     </div>
   </div>
@@ -740,10 +758,17 @@ const DATA = {
     {char:'前',answer:'before / front',disp:'survival',options:[{en:'before / front',jp:'午前',rd:'gozen'},{en:'after / back',jp:'午後',rd:'gogo'},{en:'now',jp:'今日',rd:'kyou'},{en:'minute',jp:'三分',rd:'sanpun'}]},
     {char:'後',answer:'after / back',disp:'survival',options:[{en:'after / back',jp:'午後',rd:'gogo'},{en:'before / front',jp:'午前',rd:'gozen'},{en:'hour / time',jp:'時間',rd:'jikan'},{en:'year',jp:'今年',rd:'kotoshi'}]},
     {char:'計',answer:'watch / clock (時計)',disp:'survival',options:[{en:'watch / clock (時計)',jp:'時計',rd:'tokei'},{en:'hour / time',jp:'時間',rd:'jikan'},{en:'minute',jp:'三分',rd:'sanpun'},{en:'now',jp:'今日',rd:'kyou'}]},
+    {char:'百',answer:'hundred',disp:'kanji',options:[{en:'hundred',jp:'百',rd:'hyaku'},{en:'thousand',jp:'千',rd:'sen'},{en:'ten thousand',jp:'万',rd:'man'},{en:'yen',jp:'円',rd:'en'}]},
+    {char:'千',answer:'thousand',disp:'kanji',options:[{en:'thousand',jp:'千',rd:'sen'},{en:'hundred',jp:'百',rd:'hyaku'},{en:'ten thousand',jp:'万',rd:'man'},{en:'year',jp:'年',rd:'nen'}]},
+    {char:'万',answer:'ten thousand',disp:'kanji',options:[{en:'ten thousand',jp:'万',rd:'man'},{en:'thousand',jp:'千',rd:'sen'},{en:'hundred',jp:'百',rd:'hyaku'},{en:'yen',jp:'円',rd:'en'}]},
+    {char:'半',answer:'half',disp:'kanji',options:[{en:'half',jp:'半',rd:'han'},{en:'minute',jp:'分',rd:'fun'},{en:'hour / time',jp:'時',rd:'ji'},{en:'interval',jp:'間',rd:'kan'}]},
+    {char:'間',answer:'interval / hours (時間)',disp:'kanji',options:[{en:'interval / hours (時間)',jp:'時間',rd:'jikan'},{en:'half',jp:'半',rd:'han'},{en:'minute',jp:'分',rd:'fun'},{en:'now',jp:'今',rd:'ima'}]},
+    {char:'午',answer:'noon (午前/午後)',disp:'kanji',options:[{en:'noon (午前/午後)',jp:'午後',rd:'gogo'},{en:'before / front',jp:'前',rd:'mae'},{en:'after / back',jp:'後',rd:'ato'},{en:'now',jp:'今',rd:'ima'}]},
   ],
   'kanji-nature-body': [
     {char:'日',answer:'sun / day',disp:'kanji',options:[{en:'sun / day',jp:'日本',rd:'nihon'},{en:'moon / month',jp:'月曜日',rd:'getsuyoubi'},{en:'mouth',jp:'口',rd:'kuchi'},{en:'eye',jp:'目',rd:'me'}]},
     {char:'山',answer:'mountain',disp:'kanji',options:[{en:'mountain',jp:'富士山',rd:'fujisan'},{en:'hand',jp:'手',rd:'te'},{en:'water',jp:'水',rd:'mizu'},{en:'big / great',jp:'大学',rd:'daigaku'}]},
+    {char:'川',answer:'river',disp:'kanji',options:[{en:'river',jp:'川',rd:'kawa'},{en:'mountain',jp:'山',rd:'yama'},{en:'water',jp:'水',rd:'mizu'},{en:'tree / wood',jp:'木',rd:'ki'}]},
     {char:'水',answer:'water',disp:'kanji',options:[{en:'water',jp:'水',rd:'mizu'},{en:'foot / leg',jp:'足',rd:'ashi'},{en:'fire',jp:'火',rd:'hi'},{en:'ear',jp:'耳',rd:'mimi'}]},
     {char:'人',answer:'person',disp:'kanji',options:[{en:'person',jp:'日本人',rd:'nihonjin'},{en:'mouth',jp:'口',rd:'kuchi'},{en:'big / great',jp:'大学',rd:'daigaku'},{en:'mountain',jp:'富士山',rd:'fujisan'}]},
     {char:'大',answer:'big / great',disp:'kanji',options:[{en:'big / great',jp:'大学',rd:'daigaku'},{en:'eye',jp:'目',rd:'me'},{en:'person',jp:'日本人',rd:'nihonjin'},{en:'sun / day',jp:'日本',rd:'nihon'}]},
@@ -821,6 +846,9 @@ const DATA = {
     {char:'暑い',answer:'hot',disp:'survival',options:[{en:'hot',jp:'暑い',rd:'atsui'},{en:'cold',jp:'寒い',rd:'samui'},{en:'sunny',jp:'晴れ',rd:'hare'},{en:'expensive',jp:'高い',rd:'takai'}]},
     {char:'寒い',answer:'cold',disp:'survival',options:[{en:'cold',jp:'寒い',rd:'samui'},{en:'hot',jp:'暑い',rd:'atsui'},{en:'snow',jp:'雪',rd:'yuki'},{en:'rain',jp:'雨',rd:'ame'}]},
     {char:'雪',answer:'snow',disp:'survival',options:[{en:'snow',jp:'雪',rd:'yuki'},{en:'rain',jp:'雨',rd:'ame'},{en:'cold',jp:'寒い',rd:'samui'},{en:'cloudy',jp:'曇り',rd:'kumori'}]},
+    {char:'天気',answer:'weather',disp:'kanji',options:[{en:'weather',jp:'天気',rd:'tenki'},{en:'rain',jp:'雨',rd:'ame'},{en:'spirit / feeling',jp:'気',rd:'ki'},{en:'sunny',jp:'晴れ',rd:'hare'}]},
+    {char:'気',answer:'spirit / feeling',disp:'kanji',options:[{en:'spirit / feeling',jp:'気',rd:'ki'},{en:'weather',jp:'天気',rd:'tenki'},{en:'heavens / sky',jp:'天',rd:'ten'},{en:'water',jp:'水',rd:'mizu'}]},
+    {char:'天',answer:'heavens / sky',disp:'kanji',options:[{en:'heavens / sky',jp:'天',rd:'ten'},{en:'spirit / feeling',jp:'気',rd:'ki'},{en:'weather',jp:'天気',rd:'tenki'},{en:'rain',jp:'雨',rd:'ame'}]},
   ],
   'kanji-people': [
     {char:'私',answer:'I / me',disp:'kanji',options:[{en:'I / me',jp:'私',rd:'watashi'},{en:'student',jp:'学生',rd:'gakusei'},{en:'teacher',jp:'先生',rd:'sensei'},{en:'who',jp:'誰',rd:'dare'}]},
@@ -828,6 +856,29 @@ const DATA = {
     {char:'誰',answer:'who',disp:'kanji',options:[{en:'who',jp:'誰',rd:'dare'},{en:'what',jp:'何',rd:'nan'},{en:'student',jp:'学生',rd:'gakusei'},{en:'I / me',jp:'私',rd:'watashi'}]},
     {char:'学生',answer:'student',disp:'kanji',options:[{en:'student',jp:'学生',rd:'gakusei'},{en:'teacher',jp:'先生',rd:'sensei'},{en:'school',jp:'学校',rd:'gakkou'},{en:'classroom',jp:'教室',rd:'kyoushitsu'}]},
     {char:'先生',answer:'teacher',disp:'kanji',options:[{en:'teacher',jp:'先生',rd:'sensei'},{en:'student',jp:'学生',rd:'gakusei'},{en:'I / me',jp:'私',rd:'watashi'},{en:'who',jp:'誰',rd:'dare'}]},
+    {char:'母',answer:'mother',disp:'kanji',options:[{en:'mother',jp:'母',rd:'haha'},{en:'father',jp:'父',rd:'chichi'},{en:'friend',jp:'友',rd:'tomo'},{en:'child',jp:'子',rd:'ko'}]},
+    {char:'父',answer:'father',disp:'kanji',options:[{en:'father',jp:'父',rd:'chichi'},{en:'mother',jp:'母',rd:'haha'},{en:'friend',jp:'友',rd:'tomo'},{en:'child',jp:'子',rd:'ko'}]},
+    {char:'友',answer:'friend',disp:'kanji',options:[{en:'friend',jp:'友',rd:'tomo'},{en:'mother',jp:'母',rd:'haha'},{en:'father',jp:'父',rd:'chichi'},{en:'child',jp:'子',rd:'ko'}]},
+    {char:'子',answer:'child',disp:'kanji',options:[{en:'child',jp:'子',rd:'ko'},{en:'friend',jp:'友',rd:'tomo'},{en:'student',jp:'学生',rd:'gakusei'},{en:'mother',jp:'母',rd:'haha'}]},
+  ],
+  'kanji-general': [
+    {char:'国',answer:'country',disp:'kanji',options:[{en:'country',jp:'国',rd:'kuni'},{en:'outside',jp:'外',rd:'soto'},{en:'name',jp:'名',rd:'na'},{en:'language',jp:'語',rd:'go'}]},
+    {char:'名',answer:'name',disp:'kanji',options:[{en:'name',jp:'名',rd:'na'},{en:'country',jp:'国',rd:'kuni'},{en:'book',jp:'本',rd:'hon'},{en:'child',jp:'子',rd:'ko'}]},
+    {char:'本',answer:'book',disp:'kanji',options:[{en:'book',jp:'本',rd:'hon'},{en:'name',jp:'名',rd:'na'},{en:'language',jp:'語',rd:'go'},{en:'Japan (日本)',jp:'日本',rd:'nihon'}]},
+    {char:'語',answer:'language',disp:'kanji',options:[{en:'language',jp:'語',rd:'go'},{en:'book',jp:'本',rd:'hon'},{en:'country',jp:'国',rd:'kuni'},{en:'name',jp:'名',rd:'na'}]},
+    {char:'外',answer:'outside',disp:'kanji',options:[{en:'outside',jp:'外',rd:'soto'},{en:'inside / middle',jp:'中',rd:'naka'},{en:'country',jp:'国',rd:'kuni'},{en:'left',jp:'左',rd:'hidari'}]},
+    {char:'長い',answer:'long',disp:'kanji',options:[{en:'long',jp:'長い',rd:'nagai'},{en:'short',jp:'短い',rd:'mijikai'},{en:'big',jp:'大',rd:'dai'},{en:'small',jp:'小',rd:'shou'}]},
+    {char:'短い',answer:'short',disp:'kanji',options:[{en:'short',jp:'短い',rd:'mijikai'},{en:'long',jp:'長い',rd:'nagai'},{en:'small',jp:'小',rd:'shou'},{en:'cheap',jp:'安い',rd:'yasui'}]},
+    {char:'毎',answer:'every (毎日 every day)',disp:'kanji',options:[{en:'every (毎日 every day)',jp:'毎日',rd:'mainichi'},{en:'now',jp:'今',rd:'ima'},{en:'year',jp:'年',rd:'nen'},{en:'week',jp:'週',rd:'shuu'}]},
+  ],
+  'kanji-verbs': [
+    {char:'見る',answer:'to see',disp:'kanji',options:[{en:'to see',jp:'見る',rd:'miru'},{en:'to hear / ask',jp:'聞く',rd:'kiku'},{en:'to talk',jp:'話す',rd:'hanasu'},{en:'to read',jp:'読む',rd:'yomu'}]},
+    {char:'聞く',answer:'to hear / ask',disp:'kanji',options:[{en:'to hear / ask',jp:'聞く',rd:'kiku'},{en:'to see',jp:'見る',rd:'miru'},{en:'to talk',jp:'話す',rd:'hanasu'},{en:'to write',jp:'書く',rd:'kaku'}]},
+    {char:'話す',answer:'to talk',disp:'kanji',options:[{en:'to talk',jp:'話す',rd:'hanasu'},{en:'to hear / ask',jp:'聞く',rd:'kiku'},{en:'to read',jp:'読む',rd:'yomu'},{en:'to see',jp:'見る',rd:'miru'}]},
+    {char:'読む',answer:'to read',disp:'kanji',options:[{en:'to read',jp:'読む',rd:'yomu'},{en:'to write',jp:'書く',rd:'kaku'},{en:'to talk',jp:'話す',rd:'hanasu'},{en:'to see',jp:'見る',rd:'miru'}]},
+    {char:'書く',answer:'to write',disp:'kanji',options:[{en:'to write',jp:'書く',rd:'kaku'},{en:'to read',jp:'読む',rd:'yomu'},{en:'to hear / ask',jp:'聞く',rd:'kiku'},{en:'to talk',jp:'話す',rd:'hanasu'}]},
+    {char:'来る',answer:'to come',disp:'kanji',options:[{en:'to come',jp:'来る',rd:'kuru'},{en:'to go',jp:'行く',rd:'iku'},{en:'to rest',jp:'休む',rd:'yasumu'},{en:'to see',jp:'見る',rd:'miru'}]},
+    {char:'休む',answer:'to rest / day off',disp:'kanji',options:[{en:'to rest / day off',jp:'休む',rd:'yasumu'},{en:'to come',jp:'来る',rd:'kuru'},{en:'to go',jp:'行く',rd:'iku'},{en:'to talk',jp:'話す',rd:'hanasu'}]},
   ],
 };
 
@@ -1026,6 +1077,22 @@ const VOCAB = {
       {jp:'じゅう', romaji:'juu', en:'10'},
     ],
   },
+  'vocab-colours': {
+    label: 'Colours (not covered in lessons)',
+    chars: 'あか あお きいろ…',
+    items: [
+      {jp:'あか', romaji:'aka', en:'red'},
+      {jp:'あお', romaji:'ao', en:'blue'},
+      {jp:'きいろ', romaji:'kiiro', en:'yellow'},
+      {jp:'みどり', romaji:'midori', en:'green'},
+      {jp:'くろ', romaji:'kuro', en:'black'},
+      {jp:'しろ', romaji:'shiro', en:'white'},
+      {jp:'ちゃいろ', romaji:'chairo', en:'brown'},
+      {jp:'むらさき', romaji:'murasaki', en:'purple'},
+      {jp:'ぴんく', romaji:'pinku', en:'pink'},
+      {jp:'おれんじ', romaji:'orenji', en:'orange'},
+    ],
+  },
 };
 
 const BADGE_LABELS = {
@@ -1041,12 +1108,14 @@ const BADGE_LABELS = {
   'kanji-food': 'food / dining',
   'kanji-weather': 'weather',
   'kanji-people': 'people / questions',
+  'kanji-general': 'general',
+  'kanji-verbs': 'verbs',
 };
 
 const ALL_KEYS = Object.keys(DATA);
 const HIRAGANA_KEYS = ['hiragana-base','hiragana-diacritics','hiragana-youon'];
 const KATAKANA_KEYS = ['katakana-base','katakana-diacritics','katakana-youon'];
-const KANJI_KEYS = ['kanji-numbers-time','kanji-nature-body','kanji-directions-travel','kanji-food','kanji-weather','kanji-people'];
+const KANJI_KEYS = ['kanji-numbers-time','kanji-nature-body','kanji-directions-travel','kanji-food','kanji-weather','kanji-people','kanji-general','kanji-verbs'];
 
 const selected = new Set(['hiragana-base']);
 let deck = [], current = 0, score = 0, wrong = 0, answered = false, missed = [];
@@ -1123,12 +1192,6 @@ function showScreen(id) {
 
 function showSettings() { showScreen('settings'); }
 function showKanjiSettings() { showScreen('kanji-settings'); }
-
-function changeGroups() {
-  const isKanjiDeck = deck.length > 0 && deck.every(q => KANJI_KEYS.includes(q.groupKey));
-  if (isKanjiDeck) showKanjiSettings();
-  else showSettings();
-}
 
 function tryResume() {
   if (deck.length > 0 && current < deck.length) showScreen('drill');
