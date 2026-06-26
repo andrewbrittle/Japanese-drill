@@ -1324,7 +1324,7 @@ function startNumberChallenge() {
     };
   });
   deck = numDeck;
-  current = 0; score = 0; wrong = 0; answered = false; missed = [];
+  current = 0; score = 0; wrong = 0; answered = false; missed = []; missedItems = [];
   showScreen('drill');
   renderQuestion();
 }
@@ -1343,16 +1343,22 @@ function startDrill(customDeck) {
     return;
   }
   deck = customDeck || buildDeck();
-  current = 0; score = 0; wrong = 0; answered = false; missed = [];
+  current = 0; score = 0; wrong = 0; answered = false; missed = []; missedItems = [];
   showScreen('drill');
   renderQuestion();
 }
 
+let missedItems = []; // stores full question objects for number challenge missed items
+
 function drillMissed() {
+  const missedSet = new Set(missed);
+  // Rebuild regular DATA items
   const all = [];
   Object.keys(DATA).forEach(k => DATA[k].forEach(q => all.push(Object.assign({groupKey: k}, q))));
-  const missedSet = new Set(missed);
-  startDrill(shuffle(all.filter(q => missedSet.has(q.char))));
+  const regularMissed = all.filter(q => missedSet.has(q.char));
+  // Add any stored number challenge missed items
+  const numberMissed = missedItems.filter(q => missedSet.has(q.char));
+  startDrill(shuffle([...regularMissed, ...numberMissed]));
 }
 
 function renderQuestion() {
@@ -1476,7 +1482,11 @@ function choose(btn, selectedVal, answer, char) {
     fb.textContent = `Not quite — the answer is "${answer}"`;
     fb.className = 'feedback bad';
     wrong++;
-    if (!missed.includes(char)) missed.push(char);
+    if (!missed.includes(char)) {
+      missed.push(char);
+      const q = deck[current];
+      if (q && q.disp === 'number') missedItems.push(q);
+    }
   }
   document.getElementById('stat-correct').textContent = score;
   document.getElementById('stat-wrong').textContent = wrong;
