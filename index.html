@@ -66,7 +66,7 @@
   main { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: flex-start; padding: 2rem 1rem; }
 
   .screen { width: 100%; max-width: 480px; display: none; }
-  .screen.visible { display: flex; flex-direction: column; gap: 0.75rem; }
+  .screen.visible { display: flex; flex-direction: column; gap: 1rem; }
 
   /* Settings screen */
   .settings-title { font-size: 22px; font-weight: 700; text-align: center; }
@@ -81,7 +81,7 @@
 
   .group-card {
     background: var(--surface); border: 1px solid var(--border);
-    border-radius: var(--radius-lg); padding: 0.7rem 1rem;
+    border-radius: var(--radius-lg); padding: 0.875rem 1.25rem;
     display: flex; align-items: center; justify-content: space-between;
     cursor: pointer; transition: border-color 0.15s;
     user-select: none;
@@ -226,9 +226,10 @@
   /* Match mode */
   .match-card-select {
     background: var(--surface); border: 1px solid var(--border);
-    border-radius: var(--radius-lg); padding: 1rem 1.25rem;
+    border-radius: var(--radius-lg); padding: 0.875rem 1.25rem;
     cursor: pointer; transition: border-color 0.15s; user-select: none;
   }
+  #match-category-list { display: flex; flex-direction: column; gap: 0.75rem; }
   .match-card-select:hover { border-color: var(--border-hover); }
   .match-card-select.selected { border-color: var(--purple); background: var(--purple-dim); }
   .match-card-select .group-name { font-size: 15px; font-weight: 700; }
