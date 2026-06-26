@@ -66,7 +66,7 @@
   main { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: flex-start; padding: 2rem 1rem; }
 
   .screen { width: 100%; max-width: 480px; display: none; }
-  .screen.visible { display: flex; flex-direction: column; gap: 1.5rem; }
+  .screen.visible { display: flex; flex-direction: column; gap: 0.75rem; }
 
   /* Settings screen */
   .settings-title { font-size: 22px; font-weight: 700; text-align: center; }
@@ -81,7 +81,7 @@
 
   .group-card {
     background: var(--surface); border: 1px solid var(--border);
-    border-radius: var(--radius-lg); padding: 1rem 1.25rem;
+    border-radius: var(--radius-lg); padding: 0.7rem 1rem;
     display: flex; align-items: center; justify-content: space-between;
     cursor: pointer; transition: border-color 0.15s;
     user-select: none;
@@ -301,7 +301,7 @@
 
     <div class="group-card" data-key="hiragana-diacritics" onclick="toggleGroup(this)">
       <div class="group-info">
-        <div class="group-name">Hiragana — dakuten ゛ &amp; handakuten ゜</div>
+        <div class="group-name">Hiragana — dakuten ゛ / handakuten ゜</div>
         <div class="group-chars">がざだば ぱぴぷぺぽ…</div>
         <div class="group-count">25 characters</div>
       </div>
@@ -310,7 +310,7 @@
 
     <div class="group-card" data-key="hiragana-youon" onclick="toggleGroup(this)">
       <div class="group-info">
-        <div class="group-name">Hiragana — contracted sounds (きゃ/しゃ etc.)</div>
+        <div class="group-name">Hiragana — contracted sounds きゃ/しゃ</div>
         <div class="group-chars">きゃきゅきょ しゃしゅしょ…</div>
         <div class="group-count">33 combinations</div>
       </div>
@@ -329,7 +329,7 @@
 
     <div class="group-card" data-key="katakana-diacritics" onclick="toggleGroup(this)">
       <div class="group-info">
-        <div class="group-name">Katakana — dakuten ゛ &amp; handakuten ゜</div>
+        <div class="group-name">Katakana — dakuten ゛ / handakuten ゜</div>
         <div class="group-chars">ガザダバ パピプペポ…</div>
         <div class="group-count">26 characters</div>
       </div>
@@ -338,7 +338,7 @@
 
     <div class="group-card" data-key="katakana-youon" onclick="toggleGroup(this)">
       <div class="group-info">
-        <div class="group-name">Katakana — contracted sounds (キャ/シャ etc.)</div>
+        <div class="group-name">Katakana — contracted sounds キャ/シャ</div>
         <div class="group-chars">キャキュキョ シャシュショ…</div>
         <div class="group-count">33 combinations</div>
       </div>
@@ -351,6 +351,16 @@
         <div class="group-count" id="direction-sub">See a character, pick the reading. Tap to reverse.</div>
       </div>
       <div class="toggle" id="direction-toggle"></div>
+    </div>
+
+    <div class="section-label">Number challenge</div>
+    <div class="group-card" data-key="number-challenge" onclick="toggleGroup(this)">
+      <div class="group-info">
+        <div class="group-name">Reading numbers 1–9,999</div>
+        <div class="group-chars">らんだむな すうじ</div>
+        <div class="group-count">5 random numbers per round</div>
+      </div>
+      <div class="toggle"></div>
     </div>
 
     <button class="start-btn" id="start-btn" onclick="startDrill()">Start drill</button>
@@ -1161,10 +1171,17 @@ function toggleGroup(card) {
   if (selected.has(key)) {
     selected.delete(key);
   } else {
-    const isKanji = key.startsWith('kanji-');
-    [...selected].forEach(k => {
-      if (k.startsWith('kanji-') !== isKanji) selected.delete(k);
-    });
+    if (key === 'number-challenge') {
+      // number challenge is exclusive — clear everything else
+      selected.clear();
+    } else {
+      // clear number-challenge and any groups from the opposite family (kana vs kanji)
+      selected.delete('number-challenge');
+      const isKanji = key.startsWith('kanji-');
+      [...selected].forEach(k => {
+        if (k.startsWith('kanji-') !== isKanji) selected.delete(k);
+      });
+    }
     selected.add(key);
   }
   syncCardUI();
@@ -1214,6 +1231,106 @@ function tryResumeKanji() {
   else showKanjiSettings();
 }
 
+/* ---------- Number challenge ---------- */
+const HIRA_TO_ROMA = {
+  'いち':'ichi','に':'ni','さん':'san','よん':'yon','ご':'go','ろく':'roku','なな':'nana','はち':'hachi','きゅう':'kyuu','じゅう':'juu',
+  'にじゅう':'nijuu','さんじゅう':'sanjuu','よんじゅう':'yonjuu','ごじゅう':'gojuu','ろくじゅう':'rokujuu','ななじゅう':'nanajuu','はちじゅう':'hachijuu','きゅうじゅう':'kyuujuu',
+  'ひゃく':'hyaku','にひゃく':'nihyaku','さんびゃく':'sanbyaku','よんひゃく':'yonhyaku','ごひゃく':'gohyaku','ろっぴゃく':'roppyaku','ななひゃく':'nanahyaku','はっぴゃく':'happyaku','きゅうひゃく':'kyuuhyaku',
+  'せん':'sen','にせん':'nisen','さんぜん':'sanzen','よんせん':'yonsen','ごせん':'gosen','ろくせん':'rokusen','ななせん':'nanasen','はっせん':'hassen','きゅうせん':'kyuusen',
+};
+
+function numReadingToRomaji(reading) {
+  const keys = Object.keys(HIRA_TO_ROMA).sort((a,b) => b.length - a.length);
+  return reading.split(' ').map(part => {
+    let r = part, result = '';
+    while (r.length > 0) {
+      const match = keys.find(k => r.startsWith(k));
+      if (match) { result += HIRA_TO_ROMA[match]; r = r.slice(match.length); }
+      else { result += r[0]; r = r.slice(1); }
+    }
+    return result;
+  }).join(' ');
+}
+function numToJapanese(n) {
+  if (n === 0) return 'ぜろ';
+  const ones = ['','いち','に','さん','よん','ご','ろく','なな','はち','きゅう'];
+  const tens = ['','じゅう','にじゅう','さんじゅう','よんじゅう','ごじゅう','ろくじゅう','ななじゅう','はちじゅう','きゅうじゅう'];
+  const hyaku = ['','ひゃく','にひゃく','さんびゃく','よんひゃく','ごひゃく','ろっぴゃく','ななひゃく','はっぴゃく','きゅうひゃく'];
+  const sen   = ['','せん','にせん','さんぜん','よんせん','ごせん','ろくせん','ななせん','はっせん','きゅうせん'];
+
+  const s = Math.floor(n / 1000);
+  const h = Math.floor((n % 1000) / 100);
+  const t = Math.floor((n % 100) / 10);
+  const o = n % 10;
+
+  const parts = [];
+  if (s) parts.push(sen[s]);
+  if (h) parts.push(hyaku[h]);
+  if (t) parts.push(tens[t]);
+  if (o) parts.push(ones[o]);
+  return parts.join(' ');
+}
+
+function genNumberDistractors(n) {
+  // Generate 3 plausible wrong readings by mutating one component
+  const mutations = [];
+  const s = Math.floor(n / 1000);
+  const h = Math.floor((n % 1000) / 100);
+  const t = Math.floor((n % 100) / 10);
+  const o = n % 10;
+
+  // Try swapping each non-zero component with a close alternative
+  const candidates = new Set();
+  const tries = [
+    [s, h, t, o === 0 ? 0 : (o % 9) + 1],
+    [s, h, t === 0 ? 0 : (t % 9) + 1, o],
+    [s, h === 0 ? 0 : (h % 9) + 1, t, o],
+    [s === 0 ? 0 : (s % 9) + 1, h, t, o],
+    [s, h, t === 0 ? 1 : 0, o],
+    [s, h === 0 ? 1 : 0, t, o],
+    [s === 0 ? 1 : 0, h, t, o],
+  ];
+  for (const [ts, th, tt, to] of tries) {
+    const candidate = ts * 1000 + th * 100 + tt * 10 + to;
+    if (candidate !== n && candidate > 0 && candidate <= 9999) {
+      candidates.add(candidate);
+      if (candidates.size >= 3) break;
+    }
+  }
+  // Pad if needed
+  while (candidates.size < 3) {
+    const r = Math.floor(Math.random() * 9999) + 1;
+    if (r !== n) candidates.add(r);
+  }
+  return [...candidates].slice(0, 3).map(c => numToJapanese(c));
+}
+
+function startNumberChallenge() {
+  const nums = [];
+  while (nums.length < 5) {
+    const n = Math.floor(Math.random() * 9999) + 1;
+    if (!nums.includes(n)) nums.push(n);
+  }
+  const numDeck = nums.map(n => {
+    const correct = numToJapanese(n);
+    const distractors = genNumberDistractors(n);
+    const opts = shuffle([correct, ...distractors]);
+    return {
+      char: n.toLocaleString(),
+      answer: correct,
+      disp: 'number',
+      groupKey: 'numbers',
+      options: opts.map(o => ({en: o, jp: o, rd: o})),
+    };
+  });
+  deck = numDeck;
+  current = 0; score = 0; wrong = 0; answered = false; missed = [];
+  showScreen('drill');
+  renderQuestion();
+}
+
+/* ---------- end Number challenge ---------- */
+
 function buildDeck() {
   let d = [];
   selected.forEach(k => { if (DATA[k]) DATA[k].forEach(q => d.push(Object.assign({groupKey: k}, q))); });
@@ -1221,6 +1338,10 @@ function buildDeck() {
 }
 
 function startDrill(customDeck) {
+  if (!customDeck && selected.has('number-challenge')) {
+    startNumberChallenge();
+    return;
+  }
   deck = customDeck || buildDeck();
   current = 0; score = 0; wrong = 0; answered = false; missed = [];
   showScreen('drill');
@@ -1245,11 +1366,12 @@ function renderQuestion() {
   document.getElementById('stat-left').textContent = deck.length - current;
 
   const badge = document.getElementById('q-badge');
-  badge.textContent = BADGE_LABELS[q.groupKey] || q.groupKey;
+  badge.textContent = q.disp === 'number' ? 'numbers' : (BADGE_LABELS[q.groupKey] || q.groupKey);
   let badgeClass = 'base';
   if (q.disp === 'diacritic') badgeClass = 'diacritic';
   else if (q.disp === 'kanji') badgeClass = 'kanji';
   else if (q.disp === 'survival') badgeClass = 'survival';
+  else if (q.disp === 'number') badgeClass = 'kanji';
   badge.className = 'type-badge type-' + badgeClass;
 
   document.getElementById('q-feedback').textContent = '';
@@ -1258,11 +1380,25 @@ function renderQuestion() {
   answered = false;
 
   const isKanjiLike = q.disp === 'kanji' || q.disp === 'survival';
+  const isNumber = q.disp === 'number';
   const charDisplay = document.getElementById('q-char');
   const container = document.getElementById('q-options');
   container.innerHTML = '';
 
-  if (!isKanjiLike && reversed) {
+  if (isNumber) {
+    charDisplay.style.fontFamily = "-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif";
+    charDisplay.style.fontSize = '72px';
+    charDisplay.textContent = q.char;
+    document.getElementById('q-prompt').textContent = 'How do you read this number in Japanese?';
+    q.options.forEach(o => {
+      const btn = document.createElement('button');
+      btn.className = 'opt';
+      const romaji = numReadingToRomaji(o.en);
+      btn.innerHTML = `<span class="opt-jp">${o.en}</span><span class="opt-rd">${romaji}</span>`;
+      btn.onclick = () => choose(btn, o.en, q.answer, q.char);
+      container.appendChild(btn);
+    });
+  } else if (!isKanjiLike && reversed) {
     // Romaji -> kana mode
     charDisplay.style.fontFamily = "-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif";
     charDisplay.style.fontSize = '56px';
@@ -1322,7 +1458,11 @@ function choose(btn, selectedVal, answer, char) {
   answered = true;
   document.querySelectorAll('.opt').forEach(b => {
     b.disabled = true;
-    const v = b.querySelector('.opt-en') ? b.querySelector('.opt-en').textContent.trim() : b.textContent.trim();
+    const v = b.querySelector('.opt-en')
+      ? b.querySelector('.opt-en').textContent.trim()
+      : b.querySelector('.opt-jp')
+        ? b.querySelector('.opt-jp').textContent.trim()
+        : b.textContent.trim();
     if (v === answer) b.classList.add('correct');
   });
   const fb = document.getElementById('q-feedback');
