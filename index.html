@@ -482,7 +482,7 @@
       <div class="results-btns">
         <button class="btn-primary" onclick="startDrill()">Drill again</button>
         <button class="btn-secondary" id="res-missed-btn" onclick="drillMissed()" style="display:none">Drill missed only</button>
-        <button class="btn-secondary" onclick="showSettings()">Change groups</button>
+        <button class="btn-secondary" onclick="goBackToSettings()">Change groups</button>
       </div>
     </div>
   </div>
@@ -745,30 +745,30 @@ const DATA = {
     {char:'ピョ',answer:'pyo',disp:'youon',options:['pyo','byo','kyo','hyo']},
   ],
   'kanji-numbers-time': [
-    {char:'一',answer:'one',disp:'survival',options:[{en:'one',jp:'一月',rd:'ichigatsu'},{en:'two',jp:'二月',rd:'nigatsu'},{en:'six',jp:'六月',rd:'rokugatsu'},{en:'ten',jp:'十月',rd:'juugatsu'}]},
-    {char:'二',answer:'two',disp:'survival',options:[{en:'two',jp:'二月',rd:'nigatsu'},{en:'one',jp:'一月',rd:'ichigatsu'},{en:'three',jp:'三月',rd:'sangatsu'},{en:'seven',jp:'七月',rd:'shichigatsu'}]},
-    {char:'三',answer:'three',disp:'survival',options:[{en:'three',jp:'三月',rd:'sangatsu'},{en:'two',jp:'二月',rd:'nigatsu'},{en:'eight',jp:'八月',rd:'hachigatsu'},{en:'five',jp:'五月',rd:'gogatsu'}]},
-    {char:'四',answer:'four',disp:'survival',options:[{en:'four',jp:'四月',rd:'shigatsu'},{en:'nine',jp:'九月',rd:'kugatsu'},{en:'three',jp:'三月',rd:'sangatsu'},{en:'five',jp:'五月',rd:'gogatsu'}]},
-    {char:'五',answer:'five',disp:'survival',options:[{en:'five',jp:'五月',rd:'gogatsu'},{en:'one',jp:'一月',rd:'ichigatsu'},{en:'ten',jp:'十月',rd:'juugatsu'},{en:'four',jp:'四月',rd:'shigatsu'}]},
-    {char:'六',answer:'six',disp:'survival',options:[{en:'six',jp:'六月',rd:'rokugatsu'},{en:'seven',jp:'七月',rd:'shichigatsu'},{en:'two',jp:'二月',rd:'nigatsu'},{en:'nine',jp:'九月',rd:'kugatsu'}]},
-    {char:'七',answer:'seven',disp:'survival',options:[{en:'seven',jp:'七月',rd:'shichigatsu'},{en:'six',jp:'六月',rd:'rokugatsu'},{en:'eight',jp:'八月',rd:'hachigatsu'},{en:'one',jp:'一月',rd:'ichigatsu'}]},
-    {char:'八',answer:'eight',disp:'survival',options:[{en:'eight',jp:'八月',rd:'hachigatsu'},{en:'seven',jp:'七月',rd:'shichigatsu'},{en:'three',jp:'三月',rd:'sangatsu'},{en:'ten',jp:'十月',rd:'juugatsu'}]},
-    {char:'九',answer:'nine',disp:'survival',options:[{en:'nine',jp:'九月',rd:'kugatsu'},{en:'four',jp:'四月',rd:'shigatsu'},{en:'six',jp:'六月',rd:'rokugatsu'},{en:'eight',jp:'八月',rd:'hachigatsu'}]},
-    {char:'十',answer:'ten',disp:'survival',options:[{en:'ten',jp:'十月',rd:'juugatsu'},{en:'two',jp:'二月',rd:'nigatsu'},{en:'five',jp:'五月',rd:'gogatsu'},{en:'seven',jp:'七月',rd:'shichigatsu'}]},
-    {char:'円',answer:'yen',disp:'survival',options:[{en:'yen',jp:'千円',rd:'sen en'},{en:'ten',jp:'十月',rd:'juugatsu'},{en:'minute',jp:'三分',rd:'sanpun'},{en:'hour / time',jp:'時間',rd:'jikan'}]},
+    {char:'一',answer:'one',disp:'survival',options:[{en:'one',jp:'一',rd:'ichi'},{en:'two',jp:'二',rd:'ni'},{en:'six',jp:'六',rd:'roku'},{en:'ten',jp:'十',rd:'juu'}]},
+    {char:'二',answer:'two',disp:'survival',options:[{en:'two',jp:'二',rd:'ni'},{en:'one',jp:'一',rd:'ichi'},{en:'three',jp:'三',rd:'san'},{en:'seven',jp:'七',rd:'shichi'}]},
+    {char:'三',answer:'three',disp:'survival',options:[{en:'three',jp:'三',rd:'san'},{en:'two',jp:'二',rd:'ni'},{en:'eight',jp:'八',rd:'hachi'},{en:'five',jp:'五',rd:'go'}]},
+    {char:'四',answer:'four',disp:'survival',options:[{en:'four',jp:'四',rd:'shi'},{en:'nine',jp:'九',rd:'ku'},{en:'three',jp:'三',rd:'san'},{en:'five',jp:'五',rd:'go'}]},
+    {char:'五',answer:'five',disp:'survival',options:[{en:'five',jp:'五',rd:'go'},{en:'one',jp:'一',rd:'ichi'},{en:'ten',jp:'十',rd:'juu'},{en:'four',jp:'四',rd:'shi'}]},
+    {char:'六',answer:'six',disp:'survival',options:[{en:'six',jp:'六',rd:'roku'},{en:'seven',jp:'七',rd:'shichi'},{en:'two',jp:'二',rd:'ni'},{en:'nine',jp:'九',rd:'ku'}]},
+    {char:'七',answer:'seven',disp:'survival',options:[{en:'seven',jp:'七',rd:'shichi'},{en:'six',jp:'六',rd:'roku'},{en:'eight',jp:'八',rd:'hachi'},{en:'one',jp:'一',rd:'ichi'}]},
+    {char:'八',answer:'eight',disp:'survival',options:[{en:'eight',jp:'八',rd:'hachi'},{en:'seven',jp:'七',rd:'shichi'},{en:'three',jp:'三',rd:'san'},{en:'ten',jp:'十',rd:'juu'}]},
+    {char:'九',answer:'nine',disp:'survival',options:[{en:'nine',jp:'九',rd:'ku'},{en:'four',jp:'四',rd:'shi'},{en:'six',jp:'六',rd:'roku'},{en:'eight',jp:'八',rd:'hachi'}]},
+    {char:'十',answer:'ten',disp:'survival',options:[{en:'ten',jp:'十',rd:'juu'},{en:'two',jp:'二',rd:'ni'},{en:'five',jp:'五',rd:'go'},{en:'seven',jp:'七',rd:'shichi'}]},
+    {char:'円',answer:'yen',disp:'survival',options:[{en:'yen',jp:'千円',rd:'sen en'},{en:'ten',jp:'十',rd:'juu'},{en:'3 minutes',jp:'三分',rd:'sanpun'},{en:'hour / time',jp:'時間',rd:'jikan'}]},
     {char:'月',answer:'Monday / month',disp:'survival',options:[{en:'Monday / month',jp:'月曜日',rd:'getsuyoubi'},{en:'Tuesday',jp:'火曜日',rd:'kayoubi'},{en:'Wednesday',jp:'水曜日',rd:'suiyoubi'},{en:'Thursday',jp:'木曜日',rd:'mokuyoubi'}]},
     {char:'火',answer:'Tuesday',disp:'survival',options:[{en:'Tuesday',jp:'火曜日',rd:'kayoubi'},{en:'Monday / month',jp:'月曜日',rd:'getsuyoubi'},{en:'Friday',jp:'金曜日',rd:'kinyoubi'},{en:'Wednesday',jp:'水曜日',rd:'suiyoubi'}]},
     {char:'水',answer:'Wednesday',disp:'survival',options:[{en:'Wednesday',jp:'水曜日',rd:'suiyoubi'},{en:'Thursday',jp:'木曜日',rd:'mokuyoubi'},{en:'Tuesday',jp:'火曜日',rd:'kayoubi'},{en:'Saturday',jp:'土曜日',rd:'doyoubi'}]},
     {char:'木',answer:'Thursday',disp:'survival',options:[{en:'Thursday',jp:'木曜日',rd:'mokuyoubi'},{en:'Wednesday',jp:'水曜日',rd:'suiyoubi'},{en:'Friday',jp:'金曜日',rd:'kinyoubi'},{en:'Sunday',jp:'日曜日',rd:'nichiyoubi'}]},
     {char:'金',answer:'Friday / gold',disp:'survival',options:[{en:'Friday / gold',jp:'金曜日',rd:'kinyoubi'},{en:'Thursday',jp:'木曜日',rd:'mokuyoubi'},{en:'Saturday',jp:'土曜日',rd:'doyoubi'},{en:'Monday / month',jp:'月曜日',rd:'getsuyoubi'}]},
     {char:'土',answer:'Saturday / earth',disp:'survival',options:[{en:'Saturday / earth',jp:'土曜日',rd:'doyoubi'},{en:'Friday / gold',jp:'金曜日',rd:'kinyoubi'},{en:'Sunday',jp:'日曜日',rd:'nichiyoubi'},{en:'Tuesday',jp:'火曜日',rd:'kayoubi'}]},
-    {char:'年',answer:'year',disp:'survival',options:[{en:'year',jp:'今年',rd:'kotoshi'},{en:'hour / time',jp:'時間',rd:'jikan'},{en:'minute',jp:'三分',rd:'sanpun'},{en:'now',jp:'今日',rd:'kyou'}]},
-    {char:'今',answer:'now',disp:'survival',options:[{en:'now',jp:'今日',rd:'kyou'},{en:'year',jp:'今年',rd:'kotoshi'},{en:'before',jp:'午前',rd:'gozen'},{en:'after',jp:'午後',rd:'gogo'}]},
-    {char:'時',answer:'hour / time',disp:'survival',options:[{en:'hour / time',jp:'時間',rd:'jikan'},{en:'minute',jp:'三分',rd:'sanpun'},{en:'now',jp:'今日',rd:'kyou'},{en:'year',jp:'今年',rd:'kotoshi'}]},
-    {char:'分',answer:'minute',disp:'survival',options:[{en:'minute',jp:'三分',rd:'sanpun'},{en:'hour / time',jp:'時間',rd:'jikan'},{en:'before',jp:'午前',rd:'gozen'},{en:'year',jp:'今年',rd:'kotoshi'}]},
-    {char:'前',answer:'before / front',disp:'survival',options:[{en:'before / front',jp:'午前',rd:'gozen'},{en:'after / back',jp:'午後',rd:'gogo'},{en:'now',jp:'今日',rd:'kyou'},{en:'minute',jp:'三分',rd:'sanpun'}]},
-    {char:'後',answer:'after / back',disp:'survival',options:[{en:'after / back',jp:'午後',rd:'gogo'},{en:'before / front',jp:'午前',rd:'gozen'},{en:'hour / time',jp:'時間',rd:'jikan'},{en:'year',jp:'今年',rd:'kotoshi'}]},
-    {char:'計',answer:'watch / clock (時計)',disp:'survival',options:[{en:'watch / clock (時計)',jp:'時計',rd:'tokei'},{en:'hour / time',jp:'時間',rd:'jikan'},{en:'minute',jp:'三分',rd:'sanpun'},{en:'now',jp:'今日',rd:'kyou'}]},
+    {char:'年',answer:'year',disp:'survival',options:[{en:'this year', jp:'今年',rd:'kotoshi'},{en:'hour / time',jp:'時間',rd:'jikan'},{en:'3 minutes',jp:'三分',rd:'sanpun'},{en:'today', jp:'今日',rd:'kyou'}]},
+    {char:'今',answer:'now',disp:'survival',options:[{en:'today', jp:'今日',rd:'kyou'},{en:'this year', jp:'今年',rd:'kotoshi'},{en:'before',jp:'午前',rd:'gozen'},{en:'after',jp:'午後',rd:'gogo'}]},
+    {char:'時',answer:'hour / time',disp:'survival',options:[{en:'hour / time',jp:'時間',rd:'jikan'},{en:'3 minutes',jp:'三分',rd:'sanpun'},{en:'today', jp:'今日',rd:'kyou'},{en:'this year', jp:'今年',rd:'kotoshi'}]},
+    {char:'分',answer:'minute',disp:'survival',options:[{en:'3 minutes',jp:'三分',rd:'sanpun'},{en:'hour / time',jp:'時間',rd:'jikan'},{en:'before',jp:'午前',rd:'gozen'},{en:'this year', jp:'今年',rd:'kotoshi'}]},
+    {char:'前',answer:'before / front',disp:'survival',options:[{en:'before / front',jp:'午前',rd:'gozen'},{en:'after / back',jp:'午後',rd:'gogo'},{en:'today', jp:'今日',rd:'kyou'},{en:'3 minutes',jp:'三分',rd:'sanpun'}]},
+    {char:'後',answer:'after / back',disp:'survival',options:[{en:'after / back',jp:'午後',rd:'gogo'},{en:'before / front',jp:'午前',rd:'gozen'},{en:'hour / time',jp:'時間',rd:'jikan'},{en:'this year', jp:'今年',rd:'kotoshi'}]},
+    {char:'計',answer:'watch / clock (時計)',disp:'survival',options:[{en:'watch / clock (時計)',jp:'時計',rd:'tokei'},{en:'hour / time',jp:'時間',rd:'jikan'},{en:'3 minutes',jp:'三分',rd:'sanpun'},{en:'today', jp:'今日',rd:'kyou'}]},
     {char:'百',answer:'hundred',disp:'kanji',options:[{en:'hundred',jp:'百',rd:'hyaku'},{en:'thousand',jp:'千',rd:'sen'},{en:'ten thousand',jp:'万',rd:'man'},{en:'yen',jp:'円',rd:'en'}]},
     {char:'千',answer:'thousand',disp:'kanji',options:[{en:'thousand',jp:'千',rd:'sen'},{en:'hundred',jp:'百',rd:'hyaku'},{en:'ten thousand',jp:'万',rd:'man'},{en:'year',jp:'年',rd:'nen'}]},
     {char:'万',answer:'ten thousand',disp:'kanji',options:[{en:'ten thousand',jp:'万',rd:'man'},{en:'thousand',jp:'千',rd:'sen'},{en:'hundred',jp:'百',rd:'hyaku'},{en:'yen',jp:'円',rd:'en'}]},
@@ -778,13 +778,13 @@ const DATA = {
   ],
   'kanji-nature-body': [
     {char:'日',answer:'sun / day',disp:'kanji',options:[{en:'sun / day',jp:'日本',rd:'nihon'},{en:'moon / month',jp:'月曜日',rd:'getsuyoubi'},{en:'mouth',jp:'口',rd:'kuchi'},{en:'eye',jp:'目',rd:'me'}]},
-    {char:'山',answer:'mountain',disp:'kanji',options:[{en:'mountain',jp:'富士山',rd:'fujisan'},{en:'hand',jp:'手',rd:'te'},{en:'water',jp:'水',rd:'mizu'},{en:'big / great',jp:'大学',rd:'daigaku'}]},
+    {char:'山',answer:'mountain',disp:'kanji',options:[{en:'Mt. Fuji', jp:'富士山',rd:'fujisan'},{en:'hand',jp:'手',rd:'te'},{en:'water',jp:'水',rd:'mizu'},{en:'big / great',jp:'大学',rd:'daigaku'}]},
     {char:'川',answer:'river',disp:'kanji',options:[{en:'river',jp:'川',rd:'kawa'},{en:'mountain',jp:'山',rd:'yama'},{en:'water',jp:'水',rd:'mizu'},{en:'tree / wood',jp:'木',rd:'ki'}]},
     {char:'水',answer:'water',disp:'kanji',options:[{en:'water',jp:'水',rd:'mizu'},{en:'foot / leg',jp:'足',rd:'ashi'},{en:'fire',jp:'火',rd:'hi'},{en:'ear',jp:'耳',rd:'mimi'}]},
-    {char:'人',answer:'person',disp:'kanji',options:[{en:'person',jp:'日本人',rd:'nihonjin'},{en:'mouth',jp:'口',rd:'kuchi'},{en:'big / great',jp:'大学',rd:'daigaku'},{en:'mountain',jp:'富士山',rd:'fujisan'}]},
-    {char:'大',answer:'big / great',disp:'kanji',options:[{en:'big / great',jp:'大学',rd:'daigaku'},{en:'eye',jp:'目',rd:'me'},{en:'person',jp:'日本人',rd:'nihonjin'},{en:'sun / day',jp:'日本',rd:'nihon'}]},
-    {char:'小',answer:'small',disp:'kanji',options:[{en:'small',jp:'小学校',rd:'shougakkou'},{en:'big / great',jp:'大学',rd:'daigaku'},{en:'mountain',jp:'山',rd:'yama'},{en:'tree / wood',jp:'木',rd:'ki'}]},
-    {char:'火',answer:'fire',disp:'kanji',options:[{en:'fire',jp:'火',rd:'hi'},{en:'hand',jp:'手',rd:'te'},{en:'water',jp:'水',rd:'mizu'},{en:'mountain',jp:'富士山',rd:'fujisan'}]},
+    {char:'人',answer:'person',disp:'kanji',options:[{en:'Japanese person', jp:'日本人',rd:'nihonjin'},{en:'mouth',jp:'口',rd:'kuchi'},{en:'big / great',jp:'大学',rd:'daigaku'},{en:'Mt. Fuji', jp:'富士山',rd:'fujisan'}]},
+    {char:'大',answer:'big / great',disp:'kanji',options:[{en:'big / great',jp:'大学',rd:'daigaku'},{en:'eye',jp:'目',rd:'me'},{en:'Japanese person', jp:'日本人',rd:'nihonjin'},{en:'sun / day',jp:'日本',rd:'nihon'}]},
+    {char:'小',answer:'small',disp:'kanji',options:[{en:'primary school', jp:'小学校',rd:'shougakkou'},{en:'big / great',jp:'大学',rd:'daigaku'},{en:'mountain',jp:'山',rd:'yama'},{en:'tree / wood',jp:'木',rd:'ki'}]},
+    {char:'火',answer:'fire',disp:'kanji',options:[{en:'fire',jp:'火',rd:'hi'},{en:'hand',jp:'手',rd:'te'},{en:'water',jp:'水',rd:'mizu'},{en:'Mt. Fuji', jp:'富士山',rd:'fujisan'}]},
     {char:'木',answer:'tree / wood',disp:'kanji',options:[{en:'tree / wood',jp:'木',rd:'ki'},{en:'foot / leg',jp:'足',rd:'ashi'},{en:'fire',jp:'火',rd:'hi'},{en:'big / great',jp:'大学',rd:'daigaku'}]},
     {char:'口',answer:'mouth',disp:'kanji',options:[{en:'mouth',jp:'口',rd:'kuchi'},{en:'eye',jp:'目',rd:'me'},{en:'ear',jp:'耳',rd:'mimi'},{en:'hand',jp:'手',rd:'te'}]},
     {char:'目',answer:'eye',disp:'kanji',options:[{en:'eye',jp:'目',rd:'me'},{en:'mouth',jp:'口',rd:'kuchi'},{en:'foot / leg',jp:'足',rd:'ashi'},{en:'ear',jp:'耳',rd:'mimi'}]},
@@ -793,27 +793,27 @@ const DATA = {
     {char:'足',answer:'foot / leg',disp:'kanji',options:[{en:'foot / leg',jp:'足',rd:'ashi'},{en:'eye',jp:'目',rd:'me'},{en:'hand',jp:'手',rd:'te'},{en:'ear',jp:'耳',rd:'mimi'}]},
   ],
   'kanji-directions-travel': [
-    {char:'上',answer:'up / above',disp:'survival',options:[{en:'up / above',jp:'上手',rd:'jouzu'},{en:'down / below',jp:'地下鉄',rd:'chikatetsu'},{en:'left',jp:'左折',rd:'sasetsu'},{en:'right',jp:'右折',rd:'usetsu'}]},
-    {char:'下',answer:'down / below',disp:'survival',options:[{en:'down / below',jp:'地下鉄',rd:'chikatetsu'},{en:'up / above',jp:'上手',rd:'jouzu'},{en:'middle',jp:'中学校',rd:'chuugakkou'},{en:'right',jp:'右折',rd:'usetsu'}]},
-    {char:'左',answer:'left',disp:'survival',options:[{en:'left',jp:'左折',rd:'sasetsu'},{en:'right',jp:'右折',rd:'usetsu'},{en:'up / above',jp:'上手',rd:'jouzu'},{en:'middle',jp:'中学校',rd:'chuugakkou'}]},
-    {char:'右',answer:'right',disp:'survival',options:[{en:'right',jp:'右折',rd:'usetsu'},{en:'left',jp:'左折',rd:'sasetsu'},{en:'down / below',jp:'地下鉄',rd:'chikatetsu'},{en:'north',jp:'北口',rd:'kitaguchi'}]},
-    {char:'中',answer:'middle / inside',disp:'survival',options:[{en:'middle / inside',jp:'中学校',rd:'chuugakkou'},{en:'up / above',jp:'上手',rd:'jouzu'},{en:'east',jp:'東京',rd:'toukyou'},{en:'left',jp:'左折',rd:'sasetsu'}]},
-    {char:'東',answer:'east',disp:'survival',options:[{en:'east',jp:'東京',rd:'toukyou'},{en:'west',jp:'西口',rd:'nishiguchi'},{en:'south',jp:'南口',rd:'minamiguchi'},{en:'north',jp:'北口',rd:'kitaguchi'}]},
-    {char:'西',answer:'west',disp:'survival',options:[{en:'west',jp:'西口',rd:'nishiguchi'},{en:'east',jp:'東京',rd:'toukyou'},{en:'north',jp:'北口',rd:'kitaguchi'},{en:'middle',jp:'中学校',rd:'chuugakkou'}]},
-    {char:'南',answer:'south',disp:'survival',options:[{en:'south',jp:'南口',rd:'minamiguchi'},{en:'north',jp:'北口',rd:'kitaguchi'},{en:'east',jp:'東京',rd:'toukyou'},{en:'west',jp:'西口',rd:'nishiguchi'}]},
-    {char:'北',answer:'north',disp:'survival',options:[{en:'north',jp:'北口',rd:'kitaguchi'},{en:'south',jp:'南口',rd:'minamiguchi'},{en:'west',jp:'西口',rd:'nishiguchi'},{en:'right',jp:'右折',rd:'usetsu'}]},
-    {char:'駅',answer:'station',disp:'survival',options:[{en:'station',jp:'東京駅',rd:'toukyou-eki'},{en:'train',jp:'電車',rd:'densha'},{en:'road / way',jp:'道',rd:'michi'},{en:'car',jp:'車',rd:'kuruma'}]},
-    {char:'電',answer:'electric',disp:'survival',options:[{en:'electric',jp:'電車',rd:'densha'},{en:'station',jp:'東京駅',rd:'toukyou-eki'},{en:'line',jp:'山手線',rd:'yamanote-sen'},{en:'airport',jp:'空港',rd:'kuukou'}]},
-    {char:'車',answer:'car / vehicle',disp:'survival',options:[{en:'car / vehicle',jp:'電車',rd:'densha'},{en:'station',jp:'東京駅',rd:'toukyou-eki'},{en:'road / way',jp:'道',rd:'michi'},{en:'line',jp:'山手線',rd:'yamanote-sen'}]},
-    {char:'線',answer:'line',disp:'survival',options:[{en:'line',jp:'山手線',rd:'yamanote-sen'},{en:'station',jp:'東京駅',rd:'toukyou-eki'},{en:'electric',jp:'電車',rd:'densha'},{en:'road / way',jp:'道',rd:'michi'}]},
-    {char:'道',answer:'road / way',disp:'survival',options:[{en:'road / way',jp:'道',rd:'michi'},{en:'line',jp:'山手線',rd:'yamanote-sen'},{en:'car / vehicle',jp:'電車',rd:'densha'},{en:'airport',jp:'空港',rd:'kuukou'}]},
-    {char:'空港',answer:'airport',disp:'survival',options:[{en:'airport',jp:'空港',rd:'kuukou'},{en:'station',jp:'東京駅',rd:'toukyou-eki'},{en:'road / way',jp:'道',rd:'michi'},{en:'line',jp:'山手線',rd:'yamanote-sen'}]},
-    {char:'店',answer:'shop / store',disp:'survival',options:[{en:'shop / store',jp:'お店',rd:'omise'},{en:'hospital',jp:'病院',rd:'byouin'},{en:'school',jp:'学校',rd:'gakkou'},{en:'park',jp:'公園',rd:'kouen'}]},
-    {char:'病',answer:'sick / illness',disp:'survival',options:[{en:'sick / illness',jp:'病院',rd:'byouin'},{en:'shop / store',jp:'お店',rd:'omise'},{en:'go',jp:'銀行',rd:'ginkou'},{en:'school',jp:'学校',rd:'gakkou'}]},
-    {char:'院',answer:'institution',disp:'survival',options:[{en:'institution',jp:'病院',rd:'byouin'},{en:'park',jp:'公園',rd:'kouen'},{en:'shop / store',jp:'お店',rd:'omise'},{en:'school',jp:'学校',rd:'gakkou'}]},
-    {char:'校',answer:'school',disp:'survival',options:[{en:'school',jp:'学校',rd:'gakkou'},{en:'institution',jp:'病院',rd:'byouin'},{en:'park',jp:'公園',rd:'kouen'},{en:'go',jp:'銀行',rd:'ginkou'}]},
-    {char:'行',answer:'go / bank (銀行)',disp:'survival',options:[{en:'go / bank (銀行)',jp:'銀行',rd:'ginkou'},{en:'shop / store',jp:'お店',rd:'omise'},{en:'park',jp:'公園',rd:'kouen'},{en:'school',jp:'学校',rd:'gakkou'}]},
-    {char:'公園',answer:'park',disp:'survival',options:[{en:'park',jp:'公園',rd:'kouen'},{en:'school',jp:'学校',rd:'gakkou'},{en:'institution',jp:'病院',rd:'byouin'},{en:'shop / store',jp:'お店',rd:'omise'}]},
+    {char:'上',answer:'up / above',disp:'survival',options:[{en:'up / above',jp:'上手',rd:'jouzu'},{en:'down / below',jp:'地下鉄',rd:'chikatetsu'},{en:'turn left', jp:'左折',rd:'sasetsu'},{en:'turn right', jp:'右折',rd:'usetsu'}]},
+    {char:'下',answer:'down / below',disp:'survival',options:[{en:'down / below',jp:'地下鉄',rd:'chikatetsu'},{en:'up / above',jp:'上手',rd:'jouzu'},{en:'middle school', jp:'中学校',rd:'chuugakkou'},{en:'turn right', jp:'右折',rd:'usetsu'}]},
+    {char:'左',answer:'left',disp:'survival',options:[{en:'turn left', jp:'左折',rd:'sasetsu'},{en:'turn right', jp:'右折',rd:'usetsu'},{en:'up / above',jp:'上手',rd:'jouzu'},{en:'middle school', jp:'中学校',rd:'chuugakkou'}]},
+    {char:'右',answer:'right',disp:'survival',options:[{en:'turn right', jp:'右折',rd:'usetsu'},{en:'turn left', jp:'左折',rd:'sasetsu'},{en:'down / below',jp:'地下鉄',rd:'chikatetsu'},{en:'north exit', jp:'北口',rd:'kitaguchi'}]},
+    {char:'中',answer:'middle / inside',disp:'survival',options:[{en:'middle school', jp:'中学校',rd:'chuugakkou'},{en:'up / above',jp:'上手',rd:'jouzu'},{en:'Tokyo (東京)', jp:'東京',rd:'toukyou'},{en:'turn left', jp:'左折',rd:'sasetsu'}]},
+    {char:'東',answer:'east',disp:'survival',options:[{en:'Tokyo (東京)', jp:'東京',rd:'toukyou'},{en:'west exit', jp:'西口',rd:'nishiguchi'},{en:'south exit', jp:'南口',rd:'minamiguchi'},{en:'north exit', jp:'北口',rd:'kitaguchi'}]},
+    {char:'西',answer:'west',disp:'survival',options:[{en:'west exit', jp:'西口',rd:'nishiguchi'},{en:'Tokyo (東京)', jp:'東京',rd:'toukyou'},{en:'north exit', jp:'北口',rd:'kitaguchi'},{en:'middle school', jp:'中学校',rd:'chuugakkou'}]},
+    {char:'南',answer:'south',disp:'survival',options:[{en:'south exit', jp:'南口',rd:'minamiguchi'},{en:'north exit', jp:'北口',rd:'kitaguchi'},{en:'Tokyo (東京)', jp:'東京',rd:'toukyou'},{en:'west exit', jp:'西口',rd:'nishiguchi'}]},
+    {char:'北',answer:'north',disp:'survival',options:[{en:'north exit', jp:'北口',rd:'kitaguchi'},{en:'south exit', jp:'南口',rd:'minamiguchi'},{en:'west exit', jp:'西口',rd:'nishiguchi'},{en:'turn right', jp:'右折',rd:'usetsu'}]},
+    {char:'駅',answer:'station',disp:'survival',options:[{en:'Tokyo Station', jp:'東京駅',rd:'toukyou-eki'},{en:'train', jp:'電車',rd:'densha'},{en:'road / way',jp:'道',rd:'michi'},{en:'car',jp:'車',rd:'kuruma'}]},
+    {char:'電',answer:'electric',disp:'survival',options:[{en:'train', jp:'電車',rd:'densha'},{en:'Tokyo Station', jp:'東京駅',rd:'toukyou-eki'},{en:'Yamanote Line', jp:'山手線',rd:'yamanote-sen'},{en:'airport',jp:'空港',rd:'kuukou'}]},
+    {char:'車',answer:'car / vehicle',disp:'survival',options:[{en:'train', jp:'電車',rd:'densha'},{en:'Tokyo Station', jp:'東京駅',rd:'toukyou-eki'},{en:'road / way',jp:'道',rd:'michi'},{en:'Yamanote Line', jp:'山手線',rd:'yamanote-sen'}]},
+    {char:'線',answer:'line',disp:'survival',options:[{en:'Yamanote Line', jp:'山手線',rd:'yamanote-sen'},{en:'Tokyo Station', jp:'東京駅',rd:'toukyou-eki'},{en:'train', jp:'電車',rd:'densha'},{en:'road / way',jp:'道',rd:'michi'}]},
+    {char:'道',answer:'road / way',disp:'survival',options:[{en:'road / way',jp:'道',rd:'michi'},{en:'Yamanote Line', jp:'山手線',rd:'yamanote-sen'},{en:'train', jp:'電車',rd:'densha'},{en:'airport',jp:'空港',rd:'kuukou'}]},
+    {char:'空港',answer:'airport',disp:'survival',options:[{en:'airport',jp:'空港',rd:'kuukou'},{en:'Tokyo Station', jp:'東京駅',rd:'toukyou-eki'},{en:'road / way',jp:'道',rd:'michi'},{en:'Yamanote Line', jp:'山手線',rd:'yamanote-sen'}]},
+    {char:'店',answer:'shop / store',disp:'survival',options:[{en:'shop / store',jp:'お店',rd:'omise'},{en:'hospital', jp:'病院',rd:'byouin'},{en:'school', jp:'学校',rd:'gakkou'},{en:'park', jp:'公園',rd:'kouen'}]},
+    {char:'病',answer:'sick / illness',disp:'survival',options:[{en:'hospital', jp:'病院',rd:'byouin'},{en:'shop / store',jp:'お店',rd:'omise'},{en:'bank', jp:'銀行',rd:'ginkou'},{en:'school', jp:'学校',rd:'gakkou'}]},
+    {char:'院',answer:'institution',disp:'survival',options:[{en:'hospital', jp:'病院',rd:'byouin'},{en:'park', jp:'公園',rd:'kouen'},{en:'shop / store',jp:'お店',rd:'omise'},{en:'school', jp:'学校',rd:'gakkou'}]},
+    {char:'校',answer:'school',disp:'survival',options:[{en:'school', jp:'学校',rd:'gakkou'},{en:'hospital', jp:'病院',rd:'byouin'},{en:'park', jp:'公園',rd:'kouen'},{en:'bank', jp:'銀行',rd:'ginkou'}]},
+    {char:'行',answer:'go / bank (銀行)',disp:'survival',options:[{en:'bank', jp:'銀行',rd:'ginkou'},{en:'shop / store',jp:'お店',rd:'omise'},{en:'park', jp:'公園',rd:'kouen'},{en:'school', jp:'学校',rd:'gakkou'}]},
+    {char:'公園',answer:'park',disp:'survival',options:[{en:'park', jp:'公園',rd:'kouen'},{en:'school', jp:'学校',rd:'gakkou'},{en:'hospital', jp:'病院',rd:'byouin'},{en:'shop / store',jp:'お店',rd:'omise'}]},
     {char:'止',answer:'stop',disp:'survival',options:[{en:'stop',jp:'止まれ',rd:'tomare'},{en:'danger',jp:'危険',rd:'kiken'},{en:'caution',jp:'注意',rd:'chuui'},{en:'prohibited',jp:'禁止',rd:'kinshi'}]},
     {char:'危',answer:'danger',disp:'survival',options:[{en:'danger',jp:'危険',rd:'kiken'},{en:'stop',jp:'止まれ',rd:'tomare'},{en:'caution',jp:'注意',rd:'chuui'},{en:'open',jp:'開く',rd:'hiraku'}]},
     {char:'険',answer:'risk / steep',disp:'survival',options:[{en:'risk / steep',jp:'危険',rd:'kiken'},{en:'caution',jp:'注意',rd:'chuui'},{en:'closed',jp:'閉まる',rd:'shimaru'},{en:'prohibited',jp:'禁止',rd:'kinshi'}]},
@@ -826,10 +826,10 @@ const DATA = {
     {char:'引',answer:'pull',disp:'survival',options:[{en:'pull',jp:'引く',rd:'hiku'},{en:'push',jp:'押す',rd:'osu'},{en:'closed',jp:'閉まる',rd:'shimaru'},{en:'danger',jp:'危険',rd:'kiken'}]},
     {char:'入',answer:'enter (入口 entrance)',disp:'survival',options:[{en:'enter (入口 entrance)',jp:'入口',rd:'iriguchi'},{en:'exit',jp:'出口',rd:'deguchi'},{en:'pull',jp:'引く',rd:'hiku'},{en:'push',jp:'押す',rd:'osu'}]},
     {char:'出',answer:'exit (出口)',disp:'survival',options:[{en:'exit (出口)',jp:'出口',rd:'deguchi'},{en:'entrance',jp:'入口',rd:'iriguchi'},{en:'station',jp:'駅',rd:'eki'},{en:'road / way',jp:'道',rd:'michi'}]},
-    {char:'階',answer:'floor / storey',disp:'survival',options:[{en:'floor / storey',jp:'二階',rd:'nikai'},{en:'shop / store',jp:'店',rd:'mise'},{en:'station',jp:'駅',rd:'eki'},{en:'institution',jp:'病院',rd:'byouin'}]},
+    {char:'階',answer:'floor / storey',disp:'survival',options:[{en:'floor / storey',jp:'二階',rd:'nikai'},{en:'shop / store',jp:'店',rd:'mise'},{en:'station',jp:'駅',rd:'eki'},{en:'hospital', jp:'病院',rd:'byouin'}]},
     {char:'切符',answer:'ticket',disp:'survival',options:[{en:'ticket',jp:'切符',rd:'kippu'},{en:'station',jp:'駅',rd:'eki'},{en:'car / vehicle',jp:'車',rd:'kuruma'},{en:'line',jp:'線',rd:'sen'}]},
     {char:'受付',answer:'reception',disp:'survival',options:[{en:'reception',jp:'受付',rd:'uketsuke'},{en:'classroom',jp:'教室',rd:'kyoushitsu'},{en:'canteen',jp:'食堂',rd:'shokudou'},{en:'meeting room',jp:'会議室',rd:'kaigishitsu'}]},
-    {char:'教室',answer:'classroom',disp:'survival',options:[{en:'classroom',jp:'教室',rd:'kyoushitsu'},{en:'reception',jp:'受付',rd:'uketsuke'},{en:'canteen',jp:'食堂',rd:'shokudou'},{en:'school',jp:'学校',rd:'gakkou'}]},
+    {char:'教室',answer:'classroom',disp:'survival',options:[{en:'classroom',jp:'教室',rd:'kyoushitsu'},{en:'reception',jp:'受付',rd:'uketsuke'},{en:'canteen',jp:'食堂',rd:'shokudou'},{en:'school', jp:'学校',rd:'gakkou'}]},
     {char:'食堂',answer:'canteen / cafeteria',disp:'survival',options:[{en:'canteen / cafeteria',jp:'食堂',rd:'shokudou'},{en:'reception',jp:'受付',rd:'uketsuke'},{en:'classroom',jp:'教室',rd:'kyoushitsu'},{en:'meat',jp:'肉',rd:'niku'}]},
     {char:'男',answer:'male',disp:'survival',options:[{en:'male',jp:'男',rd:'otoko'},{en:'female',jp:'女',rd:'onna'},{en:'person',jp:'人',rd:'hito'},{en:'big',jp:'大',rd:'dai'}]},
     {char:'女',answer:'female',disp:'survival',options:[{en:'female',jp:'女',rd:'onna'},{en:'male',jp:'男',rd:'otoko'},{en:'person',jp:'人',rd:'hito'},{en:'small',jp:'小',rd:'shou'}]},
@@ -840,10 +840,10 @@ const DATA = {
   ],
   'kanji-food': [
     {char:'食べる',answer:'eat',disp:'survival',options:[{en:'eat',jp:'食べる',rd:'taberu'},{en:'drink',jp:'飲む',rd:'nomu'},{en:'canteen',jp:'食堂',rd:'shokudou'},{en:'meat',jp:'肉',rd:'niku'}]},
-    {char:'飲む',answer:'drink',disp:'survival',options:[{en:'drink',jp:'飲む',rd:'nomu'},{en:'eat',jp:'食べる',rd:'taberu'},{en:'water',jp:'水',rd:'mizu'},{en:'cooking',jp:'料理',rd:'ryouri'}]},
+    {char:'飲む',answer:'drink',disp:'survival',options:[{en:'drink',jp:'飲む',rd:'nomu'},{en:'eat',jp:'食べる',rd:'taberu'},{en:'water',jp:'水',rd:'mizu'},{en:'cooking', jp:'料理',rd:'ryouri'}]},
     {char:'魚',answer:'fish',disp:'survival',options:[{en:'fish',jp:'魚',rd:'sakana'},{en:'meat',jp:'肉',rd:'niku'},{en:'vegetable',jp:'野菜',rd:'yasai'},{en:'rice / meal',jp:'ご飯',rd:'gohan'}]},
-    {char:'野菜',answer:'vegetable',disp:'survival',options:[{en:'vegetable',jp:'野菜',rd:'yasai'},{en:'fish',jp:'魚',rd:'sakana'},{en:'meat',jp:'肉',rd:'niku'},{en:'fruit',jp:'果物',rd:'kudamono'}]},
-    {char:'ご飯',answer:'rice / meal',disp:'survival',options:[{en:'rice / meal',jp:'ご飯',rd:'gohan'},{en:'breakfast',jp:'朝食',rd:'choushoku'},{en:'vegetable',jp:'野菜',rd:'yasai'},{en:'cooking',jp:'料理',rd:'ryouri'}]},
+    {char:'野菜',answer:'vegetable',disp:'survival',options:[{en:'vegetable',jp:'野菜',rd:'yasai'},{en:'fish',jp:'魚',rd:'sakana'},{en:'meat',jp:'肉',rd:'niku'},{en:'fruit', jp:'果物',rd:'kudamono'}]},
+    {char:'ご飯',answer:'rice / meal',disp:'survival',options:[{en:'rice / meal',jp:'ご飯',rd:'gohan'},{en:'breakfast',jp:'朝食',rd:'choushoku'},{en:'vegetable',jp:'野菜',rd:'yasai'},{en:'cooking', jp:'料理',rd:'ryouri'}]},
     {char:'朝食',answer:'breakfast',disp:'survival',options:[{en:'breakfast',jp:'朝食',rd:'choushoku'},{en:'lunch',jp:'昼食',rd:'chuushoku'},{en:'dinner',jp:'夕食',rd:'yuushoku'},{en:'rice / meal',jp:'ご飯',rd:'gohan'}]},
     {char:'昼食',answer:'lunch',disp:'survival',options:[{en:'lunch',jp:'昼食',rd:'chuushoku'},{en:'breakfast',jp:'朝食',rd:'choushoku'},{en:'dinner',jp:'夕食',rd:'yuushoku'},{en:'canteen',jp:'食堂',rd:'shokudou'}]},
     {char:'夕食',answer:'dinner',disp:'survival',options:[{en:'dinner',jp:'夕食',rd:'yuushoku'},{en:'lunch',jp:'昼食',rd:'chuushoku'},{en:'breakfast',jp:'朝食',rd:'choushoku'},{en:'rice / meal',jp:'ご飯',rd:'gohan'}]},
@@ -865,7 +865,7 @@ const DATA = {
     {char:'私',answer:'I / me',disp:'kanji',options:[{en:'I / me',jp:'私',rd:'watashi'},{en:'student',jp:'学生',rd:'gakusei'},{en:'teacher',jp:'先生',rd:'sensei'},{en:'who',jp:'誰',rd:'dare'}]},
     {char:'何',answer:'what',disp:'kanji',options:[{en:'what',jp:'何',rd:'nan'},{en:'who',jp:'誰',rd:'dare'},{en:'I / me',jp:'私',rd:'watashi'},{en:'where',jp:'どこ',rd:'doko'}]},
     {char:'誰',answer:'who',disp:'kanji',options:[{en:'who',jp:'誰',rd:'dare'},{en:'what',jp:'何',rd:'nan'},{en:'student',jp:'学生',rd:'gakusei'},{en:'I / me',jp:'私',rd:'watashi'}]},
-    {char:'学生',answer:'student',disp:'kanji',options:[{en:'student',jp:'学生',rd:'gakusei'},{en:'teacher',jp:'先生',rd:'sensei'},{en:'school',jp:'学校',rd:'gakkou'},{en:'classroom',jp:'教室',rd:'kyoushitsu'}]},
+    {char:'学生',answer:'student',disp:'kanji',options:[{en:'student',jp:'学生',rd:'gakusei'},{en:'teacher',jp:'先生',rd:'sensei'},{en:'school', jp:'学校',rd:'gakkou'},{en:'classroom',jp:'教室',rd:'kyoushitsu'}]},
     {char:'先生',answer:'teacher',disp:'kanji',options:[{en:'teacher',jp:'先生',rd:'sensei'},{en:'student',jp:'学生',rd:'gakusei'},{en:'I / me',jp:'私',rd:'watashi'},{en:'who',jp:'誰',rd:'dare'}]},
     {char:'母',answer:'mother',disp:'kanji',options:[{en:'mother',jp:'母',rd:'haha'},{en:'father',jp:'父',rd:'chichi'},{en:'friend',jp:'友',rd:'tomo'},{en:'child',jp:'子',rd:'ko'}]},
     {char:'父',answer:'father',disp:'kanji',options:[{en:'father',jp:'父',rd:'chichi'},{en:'mother',jp:'母',rd:'haha'},{en:'friend',jp:'友',rd:'tomo'},{en:'child',jp:'子',rd:'ko'}]},
@@ -888,8 +888,8 @@ const DATA = {
     {char:'話す',answer:'to talk',disp:'kanji',options:[{en:'to talk',jp:'話す',rd:'hanasu'},{en:'to hear / ask',jp:'聞く',rd:'kiku'},{en:'to read',jp:'読む',rd:'yomu'},{en:'to see',jp:'見る',rd:'miru'}]},
     {char:'読む',answer:'to read',disp:'kanji',options:[{en:'to read',jp:'読む',rd:'yomu'},{en:'to write',jp:'書く',rd:'kaku'},{en:'to talk',jp:'話す',rd:'hanasu'},{en:'to see',jp:'見る',rd:'miru'}]},
     {char:'書く',answer:'to write',disp:'kanji',options:[{en:'to write',jp:'書く',rd:'kaku'},{en:'to read',jp:'読む',rd:'yomu'},{en:'to hear / ask',jp:'聞く',rd:'kiku'},{en:'to talk',jp:'話す',rd:'hanasu'}]},
-    {char:'来る',answer:'to come',disp:'kanji',options:[{en:'to come',jp:'来る',rd:'kuru'},{en:'to go',jp:'行く',rd:'iku'},{en:'to rest',jp:'休む',rd:'yasumu'},{en:'to see',jp:'見る',rd:'miru'}]},
-    {char:'休む',answer:'to rest / day off',disp:'kanji',options:[{en:'to rest / day off',jp:'休む',rd:'yasumu'},{en:'to come',jp:'来る',rd:'kuru'},{en:'to go',jp:'行く',rd:'iku'},{en:'to talk',jp:'話す',rd:'hanasu'}]},
+    {char:'来る',answer:'to come',disp:'kanji',options:[{en:'to come',jp:'来る',rd:'kuru'},{en:'to go', jp:'行く',rd:'iku'},{en:'to rest',jp:'休む',rd:'yasumu'},{en:'to see',jp:'見る',rd:'miru'}]},
+    {char:'休む',answer:'to rest / day off',disp:'kanji',options:[{en:'to rest / day off',jp:'休む',rd:'yasumu'},{en:'to come',jp:'来る',rd:'kuru'},{en:'to go', jp:'行く',rd:'iku'},{en:'to talk',jp:'話す',rd:'hanasu'}]},
   ],
 };
 
@@ -1219,12 +1219,15 @@ function showScreen(id) {
   else document.querySelectorAll('.nav-pill')[2].classList.add('active');
 }
 
+let lastSettingsScreen = 'settings';
+
 function showSettings() { showScreen('settings'); }
 function showKanjiSettings() { showScreen('kanji-settings'); }
+function goBackToSettings() { showScreen(lastSettingsScreen); }
 
 function tryResume() {
   if (deck.length > 0 && current < deck.length) showScreen('drill');
-  else showSettings();
+  else goBackToSettings();
 }
 
 function tryResumeKanji() {
@@ -1306,6 +1309,7 @@ function genNumberDistractors(n) {
 }
 
 function startNumberChallenge() {
+  lastSettingsScreen = 'settings';
   const nums = [];
   while (nums.length < 5) {
     const n = Math.floor(Math.random() * 9999) + 1;
@@ -1342,6 +1346,9 @@ function startDrill(customDeck) {
     startNumberChallenge();
     return;
   }
+  lastSettingsScreen = customDeck ? lastSettingsScreen : (
+    [...selected].some(k => k.startsWith('kanji-')) ? 'kanji-settings' : 'settings'
+  );
   deck = customDeck || buildDeck();
   current = 0; score = 0; wrong = 0; answered = false; missed = []; missedItems = [];
   showScreen('drill');
